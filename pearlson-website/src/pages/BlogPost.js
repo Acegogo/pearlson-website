@@ -375,10 +375,9 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-      <motion.div 
-        className="relative bg-pearlson-navy py-20"
+    <div className="bg-cream min-h-screen">
+      <motion.div
+        className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -390,104 +389,43 @@ const BlogPost = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              {post.title}
+            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
+              Blog Post
             </h1>
-            <div className="flex flex-wrap items-center justify-center text-gray-200 space-x-4 mb-4">
-              <span>{post.date}</span>
-              <span>•</span>
-              <span>By {post.author}</span>
-              <span>•</span>
-              <Badge variant="info">{post.category}</Badge>
-              <span>•</span>
-              <span>{post.readTime}</span>
-            </div>
           </motion.div>
         </div>
       </motion.div>
-
-      {/* Content Section */}
-      <motion.div 
+      <motion.div
         className="section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            {/* Featured Image */}
-            <motion.div 
-              className="mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src={`/Images/${post.image}`}
-                alt={post.title}
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
-              />
-            </motion.div>
-            
-            {/* Article Content */}
-            <motion.div 
-              className="prose prose-lg max-w-none"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+        <div className="container-custom max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-cream p-8 rounded-lg shadow-lg border border-orange"
+            whileHover={{ scale: 1.02, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.12)' }}
+          >
+            <div className="w-full h-64 bg-gray-100 rounded-lg mb-6 border border-orange flex items-center justify-center overflow-hidden">
+              <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
+            </div>
+            <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
+            <h2 className="text-3xl font-bold mb-2 text-black">{post.title}</h2>
+            <div className="flex items-center text-olive text-sm mb-4">
+              <span className="mr-2">{post.date}</span>|
+              <span className="mx-2">{post.author}</span>|
+              <span className="ml-2">{post.readTime}</span>
+            </div>
+            <div className="prose prose-lg text-olive max-w-none mb-8">
               {formatContent(post.content)}
-            </motion.div>
-            
-            {/* Author Bio */}
-            <motion.div 
-              className="mt-12 p-6 bg-gray-50 rounded-lg"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-lg font-semibold text-pearlson-navy mb-2">About the Author</h3>
-              <p className="text-gray-600">
-                {post.author === 'Flency Atswenje' 
-                  ? 'Flency Atswenje is the founder and director of Pearlson Language School. With over 10 years of experience in language education, she is passionate about making language learning accessible and enjoyable for all students.'
-                  : 'The Pearlson Team consists of experienced educators and language specialists dedicated to providing quality language education to students of all ages and backgrounds.'
-                }
-              </p>
-            </motion.div>
-            
-            {/* Back to Blog Link */}
-            <motion.div 
-              className="mt-12 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <Link
-                to="/blog"
-                className="inline-flex items-center text-pearlson-red hover:text-pearlson-gold transition-colors duration-300 font-medium"
-              >
-                <svg
-                  className="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  />
-                </svg>
-                Back to Blog
-              </Link>
-            </motion.div>
-          </div>
+            </div>
+            <Link to="/blog" className="btn-primary hover:scale-105">Back to Blog</Link>
+          </motion.div>
         </div>
       </motion.div>
     </div>

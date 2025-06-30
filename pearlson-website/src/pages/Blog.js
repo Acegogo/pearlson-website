@@ -277,10 +277,10 @@ const Blog = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-cream">
       {/* Hero Section */}
       <motion.div 
-        className="relative bg-pearlson-navy py-20"
+        className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -292,10 +292,10 @@ const Blog = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
               Blog
             </h1>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            <p className="text-xl text-orange max-w-3xl mx-auto">
               Insights, tips, and stories from our language learning community
             </p>
           </motion.div>
@@ -304,7 +304,7 @@ const Blog = () => {
 
       {/* Featured Posts */}
       <motion.div 
-        className="section-padding bg-gray-50"
+        className="section-padding bg-olive"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -312,7 +312,7 @@ const Blog = () => {
       >
         <div className="container-custom">
           <motion.h2 
-            className="text-3xl font-bold mb-8"
+            className="text-3xl font-bold mb-8 text-cream"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -327,34 +327,21 @@ const Blog = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {posts.slice(0, 2).map((post) => (
-              <motion.div key={post.id} variants={itemVariants}>
-                <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                  <img
-                    src={`/Images/${post.image}`}
-                    alt={post.title}
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="p-6">
-                    <div className="flex items-center text-sm text-gray-600 mb-4">
-                      <span>{post.date}</span>
-                      <span className="mx-2">•</span>
-                      <Badge variant="info">{post.category}</Badge>
-                      <span className="mx-2">•</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-3">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">By {post.author}</span>
-                      <Link
-                        to={`/blog/post/${post.id}`}
-                        className="text-pearlson-red hover:text-pearlson-navy transition-colors duration-300 font-medium"
-                      >
-                        Read More →
-                      </Link>
-                    </div>
+            {posts.slice(0, 2).map((post, index) => (
+              <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
+                <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
+                  <div className="w-full h-48 bg-gray-100 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
+                    <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
                   </div>
+                  <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
+                  <h3 className="text-xl font-bold mb-2 text-black">{post.title}</h3>
+                  <p className="text-olive mb-4">{post.excerpt}</p>
+                  <div className="flex items-center text-olive text-sm mb-4">
+                    <span className="mr-2">{post.date}</span>|
+                    <span className="mx-2">{post.author}</span>|
+                    <span className="ml-2">{post.readTime}</span>
+                  </div>
+                  <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
                 </Card>
               </motion.div>
             ))}
@@ -362,7 +349,7 @@ const Blog = () => {
         </div>
       </motion.div>
 
-      {/* Recent Posts */}
+      {/* Recent Articles */}
       <motion.div 
         className="section-padding"
         initial={{ opacity: 0 }}
@@ -372,7 +359,7 @@ const Blog = () => {
       >
         <div className="container-custom">
           <motion.h2 
-            className="text-3xl font-bold mb-8"
+            className="text-3xl font-bold mb-8 text-black"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -387,34 +374,21 @@ const Blog = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {posts.slice(2).map((post) => (
-              <motion.div key={post.id} variants={itemVariants}>
-                <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                  <img
-                    src={`/Images/${post.image}`}
-                    alt={post.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <div className="flex items-center text-sm text-gray-600 mb-4">
-                      <span>{post.date}</span>
-                      <span className="mx-2">•</span>
-                      <Badge variant="info">{post.category}</Badge>
-                      <span className="mx-2">•</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-3">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">By {post.author}</span>
-                      <Link
-                        to={`/blog/post/${post.id}`}
-                        className="text-pearlson-red hover:text-pearlson-navy transition-colors duration-300 font-medium"
-                      >
-                        Read More →
-                      </Link>
-                    </div>
+            {posts.slice(2).map((post, index) => (
+              <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
+                <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
+                  <div className="w-full h-40 bg-gray-100 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
+                    <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
                   </div>
+                  <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
+                  <h3 className="text-lg font-bold mb-2 text-black">{post.title}</h3>
+                  <p className="text-olive mb-4">{post.excerpt}</p>
+                  <div className="flex items-center text-olive text-sm mb-4">
+                    <span className="mr-2">{post.date}</span>|
+                    <span className="mx-2">{post.author}</span>|
+                    <span className="ml-2">{post.readTime}</span>
+                  </div>
+                  <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
                 </Card>
               </motion.div>
             ))}
