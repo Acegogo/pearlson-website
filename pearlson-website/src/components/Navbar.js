@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+function scrollToAnchor(anchor) {
+  const el = document.getElementById(anchor);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,6 +25,9 @@ const Navbar = () => {
 
   const navLinks = [
     { path: '/', label: 'Home' },
+    { path: '/#features', label: 'Features', anchor: 'features' },
+    { path: '/#stats', label: 'Stats', anchor: 'stats' },
+    { path: '/#cta', label: 'Get Started', anchor: 'cta' },
     { path: '/about', label: 'About' },
     { path: '/courses', label: 'Courses' },
     { path: '/events', label: 'Events' },
@@ -38,26 +48,47 @@ const Navbar = () => {
             <img
               src="/Images/PLS_logo.png"
               alt="Pearlson Languages"
-              className="h-12"
+              className="h-12 bg-white rounded-lg p-1 shadow-md"
+              style={{ background: 'white', borderRadius: '0.5rem', padding: '0.25rem' }}
             />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-lg font-medium transition-colors duration-300 ${
-                  location.pathname === link.path
-                    ? 'text-pearlson-red'
-                    : isScrolled
-                    ? 'text-gray-800 hover:text-pearlson-red'
-                    : 'text-white hover:text-pearlson-red'
-                }`}
-              >
-                {link.label}
-              </Link>
+              link.anchor && location.pathname === '/' ? (
+                <a
+                  key={link.label}
+                  href={`#${link.anchor}`}
+                  className={`text-lg font-medium transition-colors duration-300 ${
+                    location.hash === `#${link.anchor}`
+                      ? 'text-pearlson-red'
+                      : isScrolled
+                      ? 'text-gray-800 hover:text-pearlson-red'
+                      : 'text-white hover:text-pearlson-red'
+                  }`}
+                  onClick={e => {
+                    e.preventDefault();
+                    scrollToAnchor(link.anchor);
+                  }}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-lg font-medium transition-colors duration-300 ${
+                    location.pathname === link.path
+                      ? 'text-pearlson-red'
+                      : isScrolled
+                      ? 'text-gray-800 hover:text-pearlson-red'
+                      : 'text-white hover:text-pearlson-red'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
             <Link
               to="/contact"

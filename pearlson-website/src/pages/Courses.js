@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
+import { Link } from 'react-router-dom';
 
 const Courses = () => {
   const [activeLanguage, setActiveLanguage] = useState('tutor');
@@ -49,10 +50,10 @@ const Courses = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-cream">
       {/* Hero Section */}
       <motion.div 
-        className="relative bg-pearlson-navy py-20"
+        className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -64,10 +65,10 @@ const Courses = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
               Our Language Programs
             </h1>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            <p className="text-xl text-orange max-w-3xl mx-auto">
               Discover our comprehensive French and German language programs designed for primary schools
             </p>
           </motion.div>
@@ -91,20 +92,20 @@ const Courses = () => {
             viewport={{ once: true }}
           >
             {courses.tutor.map((course, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="mb-8 hover:shadow-xl transition-shadow duration-300">
+              <motion.div key={index} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
+                <Card className="mb-8 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
                   <div className="relative h-48">
                     <img
                       src={course.image}
                       alt={course.title}
                       className="w-full h-full object-cover"
                     />
-                    <Badge variant="primary" className="absolute top-4 left-4">{course.level}</Badge>
+                    <Badge variant="primary" className="absolute top-4 left-4 bg-orange text-cream">{course.level}</Badge>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{course.title}</h3>
-                    <p className="text-gray-600 mb-4">{course.description}</p>
-                    <div className="flex items-center text-gray-600 mb-4">
+                    <h3 className="text-xl font-bold mb-2 text-black">{course.title}</h3>
+                    <p className="text-olive mb-4">{course.description}</p>
+                    <div className="flex items-center text-olive mb-4">
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="none"
@@ -120,7 +121,7 @@ const Courses = () => {
                       </svg>
                       {course.duration}
                     </div>
-                    <div className="flex items-center text-gray-600 mb-6">
+                    <div className="flex items-center text-olive mb-6">
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="none"
@@ -138,9 +139,9 @@ const Courses = () => {
                     </div>
                     <ul className="space-y-2 mb-6">
                       {course.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-gray-600">
+                        <li key={featureIndex} className="flex items-center text-olive">
                           <svg
-                            className="w-5 h-5 mr-2 text-pearlson-red"
+                            className="w-5 h-5 mr-2 text-orange"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -156,7 +157,7 @@ const Courses = () => {
                         </li>
                       ))}
                     </ul>
-                    <button className="btn-primary w-full">Contact Us</button>
+                    <Link to="/contact" className="btn-primary w-full hover:scale-105 text-center">Contact Us</Link>
                   </div>
                 </Card>
               </motion.div>
@@ -167,7 +168,7 @@ const Courses = () => {
 
       {/* Testimonials */}
       <motion.div 
-        className="bg-gray-50 section-padding"
+        className="bg-olive section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -175,7 +176,7 @@ const Courses = () => {
       >
         <div className="container-custom">
           <motion.h2 
-            className="text-3xl font-bold text-center mb-12"
+            className="text-3xl font-bold text-center mb-12 text-cream"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}

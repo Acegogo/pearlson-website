@@ -13,7 +13,7 @@ const Card = ({
   const baseClasses = 'bg-white rounded-lg transition-all duration-300';
   const paddingClass = padding ? 'p-6' : '';
   const shadowClass = shadow ? 'shadow-lg' : '';
-  const borderClass = border ? 'border border-gray-200' : '';
+  const borderClass = border ? 'border border-orange' : '';
 
   const cardClasses = `
     ${baseClasses}
@@ -24,7 +24,7 @@ const Card = ({
   `;
 
   const hoverClasses = hover
-    ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer'
+    ? 'hover:shadow-2xl hover:scale-105 cursor-pointer'
     : '';
 
   const Component = onClick ? motion.button : motion.div;

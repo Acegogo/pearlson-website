@@ -59,7 +59,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-pearlson-navy text-white">
+    <footer className="bg-teal text-cream">
       <div className="container-custom py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -82,7 +82,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-pearlson-red transition-colors duration-300"
+                  className="text-gray-300 hover:text-olive transition-colors duration-300"
                 >
                   {social.icon}
                 </a>
@@ -98,7 +98,7 @@ const Footer = () => {
                 <li key={link.label}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-pearlson-red transition-colors duration-300"
+                    className="text-gray-300 hover:text-olive transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -115,7 +115,7 @@ const Footer = () => {
                 <li key={link.label}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-pearlson-red transition-colors duration-300"
+                    className="text-gray-300 hover:text-olive transition-colors duration-300"
                   >
                     {link.label}
                   </Link>

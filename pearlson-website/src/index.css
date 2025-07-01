@@ -7,16 +7,24 @@
 @layer base {
   html {
     font-family: 'Roboto', system-ui, sans-serif;
+    background-color: #E7E6C4;
+    color: #3F3826;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    scroll-behavior: smooth;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', system-ui, sans-serif;
+    color: #000000;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-2 bg-pearlson-red text-white rounded-lg hover:bg-red-700 transition-colors duration-300;
+    @apply px-6 py-2 bg-orange text-cream rounded-lg hover:bg-olive hover:text-orange transition-colors duration-300 shadow-md hover:shadow-lg hover:scale-105;
   }
   
   .section-padding {

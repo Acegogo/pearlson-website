@@ -56,10 +56,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-cream">
       {/* Hero Section */}
       <motion.div 
-        className="relative bg-pearlson-navy py-20"
+        className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -71,10 +71,10 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
               Contact Us
             </h1>
-            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            <p className="text-xl text-orange max-w-3xl mx-auto">
               Get in touch with us for any inquiries about our language programs
             </p>
           </motion.div>
@@ -99,11 +99,11 @@ const Contact = () => {
           >
             {/* Contact Form */}
             <motion.div variants={itemVariants}>
-              <Card className="p-8 mb-8 hover:shadow-xl transition-shadow duration-300">
-                <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
+              <Card className="p-8 mb-8 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
+                <h2 className="text-2xl font-bold mb-6 text-black">Send us a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-olive mb-2">
                       Full Name
                     </label>
                     <input
@@ -112,12 +112,12 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pearlson-gold focus:border-transparent"
+                      className="form-input bg-cream text-black border border-orange focus:ring-2 focus:ring-orange focus:border-transparent"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-olive mb-2">
                       Email Address
                     </label>
                     <input
@@ -126,12 +126,12 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pearlson-gold focus:border-transparent"
+                      className="form-input bg-cream text-black border border-orange focus:ring-2 focus:ring-orange focus:border-transparent"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-gray-700 mb-2">
+                    <label htmlFor="phone" className="block text-olive mb-2">
                       Phone Number
                     </label>
                     <input
@@ -140,11 +140,11 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pearlson-gold focus:border-transparent"
+                      className="form-input bg-cream text-black border border-orange focus:ring-2 focus:ring-orange focus:border-transparent"
                     />
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-gray-700 mb-2">
+                    <label htmlFor="subject" className="block text-olive mb-2">
                       Subject
                     </label>
                     <input
@@ -153,12 +153,12 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pearlson-gold focus:border-transparent"
+                      className="form-input bg-cream text-black border border-orange focus:ring-2 focus:ring-orange focus:border-transparent"
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-gray-700 mb-2">
+                    <label htmlFor="message" className="block text-olive mb-2">
                       Message
                     </label>
                     <textarea
@@ -167,13 +167,13 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows="4"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pearlson-gold focus:border-transparent"
+                      className="form-input bg-cream text-black border border-orange focus:ring-2 focus:ring-orange focus:border-transparent"
                       required
                     ></textarea>
                   </div>
                   <button
                     type="submit"
-                    className="btn-primary w-full"
+                    className="btn-primary w-full hover:scale-105"
                   >
                     Send Message
                   </button>
@@ -187,17 +187,18 @@ const Contact = () => {
               className="space-y-8"
             >
               <motion.div 
-                className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
+                className="bg-cream rounded-lg shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300 border border-orange"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}
               >
-                <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
+                <h2 className="text-2xl font-bold mb-6 text-black">Contact Information</h2>
                 <div className="space-y-4">
                   <div className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-pearlson-red mt-1 mr-4"
+                      className="w-6 h-6 text-orange mt-1 mr-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -210,13 +211,13 @@ const Contact = () => {
                       />
                     </svg>
                     <div>
-                      <h3 className="font-semibold">Email</h3>
-                      <p className="text-gray-600">info@pearlsonlanguages.co.ke</p>
+                      <h3 className="font-semibold text-black">Email</h3>
+                      <p className="text-olive">info@pearlsonlanguages.co.ke</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-pearlson-red mt-1 mr-4"
+                      className="w-6 h-6 text-orange mt-1 mr-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -225,17 +226,17 @@ const Contact = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2"
                       />
                     </svg>
                     <div>
-                      <h3 className="font-semibold">Phone</h3>
-                      <p className="text-gray-600">0727211822</p>
+                      <h3 className="font-semibold text-black">Phone</h3>
+                      <p className="text-olive">+254 727 211 822</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-pearlson-red mt-1 mr-4"
+                      className="w-6 h-6 text-orange mt-1 mr-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -244,18 +245,12 @@ const Contact = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        d="M17 20h5v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2h5"
                       />
                     </svg>
                     <div>
-                      <h3 className="font-semibold">Location</h3>
-                      <p className="text-gray-600">Nairobi, Kenya</p>
+                      <h3 className="font-semibold text-black">Address</h3>
+                      <p className="text-olive">Nairobi, Kenya</p>
                     </div>
                   </div>
                 </div>
@@ -263,7 +258,7 @@ const Contact = () => {
 
               {/* Map */}
               <motion.div 
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                className="bg-cream rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-orange"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -287,14 +282,14 @@ const Contact = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <Card className="p-8 hover:shadow-xl transition-shadow duration-300">
-                  <h2 className="text-2xl font-bold mb-6">Follow Us</h2>
+                <Card className="p-8 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
+                  <h2 className="text-2xl font-bold mb-6 text-black">Follow Us</h2>
                   <div className="flex space-x-4">
                     <a
                       href="https://x.com/Pearlsonke"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-pearlson-red transition-colors duration-300"
+                      className="text-olive hover:text-orange transition-colors duration-300"
                     >
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -304,7 +299,7 @@ const Contact = () => {
                       href="https://www.instagram.com/pearlson_languages/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-pearlson-red transition-colors duration-300"
+                      className="text-olive hover:text-orange transition-colors duration-300"
                     >
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -318,7 +313,7 @@ const Contact = () => {
                       href="https://web.facebook.com/profile.php?id=61576307943244"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-pearlson-red transition-colors duration-300"
+                      className="text-olive hover:text-orange transition-colors duration-300"
                     >
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <path

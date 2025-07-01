@@ -6,8 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'pearlson-navy': '#1a237e',
-        'pearlson-red': '#d32f2f',
+        'cream': '#E7E6C4',
+        'orange': '#FF3500',
+        'olive': '#3F3826',
+        'black': '#000000',
+        'teal': '#008080',
       },
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif'],
