@@ -5,8 +5,6 @@ import Badge from '../components/Badge';
 import { Link } from 'react-router-dom';
 
 const Courses = () => {
-  const [activeLanguage, setActiveLanguage] = useState('tutor');
-
   const courses = {
     tutor: [
       {

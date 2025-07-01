@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../components/Card';
-import Badge from '../components/Badge';
 
 const NAIROBI_IMAGES = [
   '1 (2).jpg', '1 (15).jpg', '1 (21).jpg', '1 (23).jpg', '1 (29).jpg', '1 (32).jpg', '1 (37).jpg', '1 (41).jpg', '1 (45).jpg', '1 (55).jpg',
