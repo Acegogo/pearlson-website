@@ -136,15 +136,6 @@ const BlogPost = () => {
         **Guest Speakers**
         We're excited to welcome guest speakers from different cultural backgrounds who will share their experiences and insights about language learning and cultural exchange.
 
-        **Preparation Timeline:**
-        - **May 15-30**: Student auditions and selection
-        - **June 1-10**: Intensive rehearsals and practice sessions
-        - **June 11**: Final dress rehearsal
-        - **June 12**: Multilingual Fest 2025
-
-        **How to Participate:**
-        Parents and community members are encouraged to attend and support our students. Admission is free, and we welcome everyone to join us in celebrating the power of language and cultural diversity.
-
         "The Multilingual Fest is not just about showcasing language skills," says our director, "it's about building bridges between cultures and fostering understanding and respect for diversity."
       `
     },
