@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import CoursesRegistrationForm from '../components/CoursesRegistrationForm';
-import FunctionTester from '../components/FunctionTester';
 
 const CoursesRegister = () => {
   useEffect(() => {
@@ -19,10 +18,6 @@ const CoursesRegister = () => {
       <div className="relative z-10 w-full flex items-center justify-center py-8">
         <div className="w-full max-w-xl bg-white bg-opacity-70 backdrop-blur-md rounded-lg shadow-lg">
           <CoursesRegistrationForm />
-        </div>
-        {/* Temporary FunctionTester for debugging */}
-        <div className="mt-8">
-          <FunctionTester />
         </div>
       </div>
     </div>

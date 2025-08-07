@@ -104,10 +104,7 @@ exports.handler = async function(event) {
     const doc = new GoogleSpreadsheet(process.env.COURSES_SHEET_ID);
     
     // v4+ authentication
-    await doc.useServiceAccountAuth({
-      client_email: creds.client_email,
-      private_key: creds.private_key,
-    });
+    await doc.useServiceAccountAuth(creds);
     console.log('Authentication successful');
     
     await doc.loadInfo();
