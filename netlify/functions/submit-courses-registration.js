@@ -103,7 +103,7 @@ exports.handler = async function(event) {
     console.log('Initializing Google Spreadsheet...');
     const doc = new GoogleSpreadsheet(process.env.COURSES_SHEET_ID);
     
-    // v4+ authentication
+    // v5+ authentication
     await doc.useServiceAccountAuth(creds);
     console.log('Authentication successful');
     

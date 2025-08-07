@@ -88,23 +88,14 @@ This guide will help you set up the Netlify functions for the registration forms
 
 ## Testing
 
-You can test the functions using the FunctionTester component or by submitting the registration forms.
+You can test the functions by submitting the registration forms directly.
 
 ## Troubleshooting
 
-### Common Issues:
-
-1. **"Network error"**: Check that the environment variables are set correctly
-2. **"Server configuration error"**: Verify that the Google Sheets credentials are properly encoded
-3. **"Missing required fields"**: Ensure all form fields are filled out correctly
-4. **CORS errors**: The functions now include proper CORS headers
-
-### Debug Steps:
-
-1. Check Netlify function logs in the dashboard
-2. Verify environment variables are set correctly
-3. Test the basic function first using the FunctionTester
-4. Ensure Google Sheets are shared with the service account email
+1. **Function returns 500 error**: Check that your environment variables are set correctly in Netlify
+2. **Google Sheets authentication fails**: Verify your service account credentials are properly base64 encoded
+3. **Form submission fails**: Check the browser console and Netlify function logs for detailed error messages
+4. **Test the basic function first by submitting a registration form
 
 ## Function URLs
 
