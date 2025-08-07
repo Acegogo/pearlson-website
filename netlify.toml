@@ -1,0 +1,21 @@
+[build]
+  base = "."
+  publish = "build"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Force Netlify to use this configuration
+[context.production]
+  command = "npm run build"
+  publish = "build" 
