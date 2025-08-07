@@ -78,19 +78,6 @@ const Home = () => {
     document.title = 'Home | Pearlson Languages';
   }, []);
 
-  const [ref, setRef] = useState(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-    if (ref) observer.observe(ref);
-    return () => observer.disconnect();
-  }, [ref]);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
