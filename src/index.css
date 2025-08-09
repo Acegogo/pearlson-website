@@ -34,4 +34,15 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  /* Glassmorphism helpers */
+  .glass-panel {
+    @apply bg-white/15 backdrop-blur-md border border-white/30 shadow-lg;
+  }
+  .glass-card {
+    @apply bg-cream/90 backdrop-blur-sm;
+  }
+  .glass-button {
+    @apply backdrop-blur-sm bg-white/10;
+  }
 } 

@@ -103,7 +103,7 @@ exports.handler = async function(event) {
     console.log('Initializing Google Spreadsheet...');
     const doc = new GoogleSpreadsheet(process.env.FESTIVAL_SHEET_ID);
     
-    // v5+ authentication
+    // v5+ authentication - pass credentials directly
     await doc.useServiceAccountAuth(creds);
     console.log('Authentication successful');
     
@@ -114,7 +114,7 @@ exports.handler = async function(event) {
     console.log('Received data:', JSON.stringify(data, null, 2));
     
     // Basic validation (backend)
-    if (!data.schoolName || !data.contactPerson || !data.email || !data.phone || !data.transactionCode || !data.category) {
+    if (!data.schoolName || !data.contactPerson || !data.email || !data.phone || !data.transactionCode || !data.categories || !data.categories.length) {
       return { 
         statusCode: 400, 
         headers: corsHeaders,
@@ -130,7 +130,7 @@ exports.handler = async function(event) {
       Email: data.email,
       Phone: data.phone,
       'Transaction Code': data.transactionCode,
-      Category: data.category,
+      'Categories': data.categories.join(', '),
     });
     console.log('Row added successfully');
 

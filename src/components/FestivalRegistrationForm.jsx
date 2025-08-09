@@ -6,7 +6,7 @@ const initialState = {
   email: '',
   phone: '',
   transactionCode: '',
-  category: '',
+  categories: [],
 };
 
 const categories = [
@@ -33,7 +33,7 @@ function validate(values) {
   else if (!/^\+254\d{9}$/.test(values.phone)) errors.phone = 'Phone must be in +254xxxxxxxxx format.';
   if (!values.transactionCode) errors.transactionCode = 'M-Pesa transaction code is required.';
   else if (!/^[A-Za-z0-9]{10,12}$/.test(values.transactionCode)) errors.transactionCode = 'Transaction code must be 10-12 alphanumeric characters.';
-  if (!values.category) errors.category = 'Category is required.';
+  if (!values.categories.length) errors.categories = 'At least one category is required.';
   return errors;
 }
 
@@ -45,8 +45,19 @@ const FestivalRegistrationForm = () => {
   const [serverError, setServerError] = useState('');
 
   const handleChange = e => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: undefined });
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox' && name === 'categories') {
+      setValues(v => ({ 
+        ...v, 
+        categories: checked 
+          ? [...v.categories, value] 
+          : v.categories.filter(c => c !== value) 
+      }));
+      setErrors({ ...errors, categories: undefined });
+    } else {
+      setValues({ ...values, [name]: value });
+      setErrors({ ...errors, [name]: undefined });
+    }
   };
 
   const handleSubmit = async e => {
@@ -171,22 +182,24 @@ const FestivalRegistrationForm = () => {
         {errors.transactionCode && <div id="transactionCode-error" className="text-red-600 text-sm mt-1">{errors.transactionCode}</div>}
       </div>
       <div className="mb-4">
-        <label htmlFor="category" className="block font-semibold mb-1">Category/Item</label>
-        <select
-          id="category"
-          name="category"
-          className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.category}
-          onChange={handleChange}
-          aria-invalid={!!errors.category}
-          aria-describedby="category-error"
-        >
-          <option value="">Select a category</option>
+        <span className="block font-semibold mb-1">Category/Item (Select all that apply)</span>
+        <div className="max-h-48 overflow-y-auto border border-gray-300 rounded p-3 bg-white">
           {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <label key={cat} className="flex items-center mb-2 hover:bg-gray-50 p-1 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                id={`category-${cat}`}
+                name="categories"
+                value={cat}
+                checked={values.categories.includes(cat)}
+                onChange={handleChange}
+                className="mr-3 w-4 h-4 text-[#FF4500] bg-gray-100 border-gray-300 rounded focus:ring-[#FF4500] focus:ring-2"
+              />
+              <span className="text-gray-800 text-sm">{cat}</span>
+            </label>
           ))}
-        </select>
-        {errors.category && <div id="category-error" className="text-red-600 text-sm mt-1">{errors.category}</div>}
+        </div>
+        {errors.categories && <div className="text-red-600 text-sm mt-1">{errors.categories}</div>}
       </div>
       <button
         type="submit"

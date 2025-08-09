@@ -277,163 +277,171 @@ const Blog = () => {
   };
 
   return (
-    <div className="bg-cream">
-      {/* Hero Section */}
-      <motion.div 
-        className="relative bg-teal py-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
-              Blog
-            </h1>
-            <p className="text-xl text-orange max-w-3xl mx-auto">
-              Insights, tips, and stories from our language learning community
-            </p>
-          </motion.div>
-        </div>
-      </motion.div>
+    <div
+      className="relative"
+      style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (289).jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      <div className="absolute inset-0 bg-white/70" />
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <motion.div 
+          className="relative py-20 bg-center bg-cover"
+          style={{ backgroundImage: "url('/Images/IMG-20250410-WA0074.jpg')" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="container-custom relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center glass-panel rounded-xl p-6 inline-block mx-auto"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
+                Blog
+              </h1>
+              <p className="text-xl text-orange max-w-3xl mx-auto">
+                Insights, tips, and stories from our language learning community
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
 
-      {/* Featured Posts */}
-      <motion.div 
-        className="section-padding bg-olive"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className="container-custom">
-          <motion.h2 
-            className="text-3xl font-bold mb-8 text-cream"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Featured Articles
-          </motion.h2>
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {posts.slice(0, 2).map((post, index) => (
-              <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
-                <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
-                  <div className="w-full h-48 bg-gray-100 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
-                    <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
-                  </div>
-                  <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
-                  <h3 className="text-xl font-bold mb-2 text-black">{post.title}</h3>
-                  <p className="text-olive mb-4">{post.excerpt}</p>
-                  <div className="flex items-center text-olive text-sm mb-4">
-                    <span className="mr-2">{post.date}</span>|
-                    <span className="mx-2">{post.author}</span>|
-                    <span className="ml-2">{post.readTime}</span>
-                  </div>
-                  <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.div>
+        {/* Featured Posts */}
+        <motion.div 
+          className="section-padding bg-olive/95"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="container-custom">
+            <motion.h2 
+              className="text-3xl font-bold mb-8 text-cream"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Featured Articles
+            </motion.h2>
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {posts.slice(0, 2).map((post, index) => (
+                <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
+                  <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange glass-card">
+                    <div className="w-full h-48 bg-gray-100/60 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
+                      <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
+                    </div>
+                    <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
+                    <h3 className="text-xl font-bold mb-2 text-black">{post.title}</h3>
+                    <p className="text-olive mb-4">{post.excerpt}</p>
+                    <div className="flex items-center text-olive text-sm mb-4">
+                      <span className="mr-2">{post.date}</span>|
+                      <span className="mx-2">{post.author}</span>|
+                      <span className="ml-2">{post.readTime}</span>
+                    </div>
+                    <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
 
-      {/* Recent Articles */}
-      <motion.div 
-        className="section-padding"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className="container-custom">
-          <motion.h2 
-            className="text-3xl font-bold mb-8 text-black"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Recent Articles
-          </motion.h2>
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {posts.slice(2).map((post, index) => (
-              <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
-                <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
-                  <div className="w-full h-40 bg-gray-100 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
-                    <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
-                  </div>
-                  <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
-                  <h3 className="text-lg font-bold mb-2 text-black">{post.title}</h3>
-                  <p className="text-olive mb-4">{post.excerpt}</p>
-                  <div className="flex items-center text-olive text-sm mb-4">
-                    <span className="mr-2">{post.date}</span>|
-                    <span className="mx-2">{post.author}</span>|
-                    <span className="ml-2">{post.readTime}</span>
-                  </div>
-                  <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.div>
+        {/* Recent Articles */}
+        <motion.div 
+          className="section-padding"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="container-custom">
+            <motion.h2 
+              className="text-3xl font-bold mb-8 text-black"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Recent Articles
+            </motion.h2>
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {posts.slice(2).map((post, index) => (
+                <motion.div key={post.id} variants={itemVariants} whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
+                  <Card className="p-6 hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange glass-card">
+                    <div className="w-full h-40 bg-gray-100/60 rounded-lg mb-4 border border-orange flex items-center justify-center overflow-hidden">
+                      <img src={`/Images/${post.image}`} alt={post.title} className="w-full h-full object-contain rounded-lg" />
+                    </div>
+                    <Badge variant="primary" className="mb-2 bg-orange text-cream">{post.category}</Badge>
+                    <h3 className="text-lg font-bold mb-2 text-black">{post.title}</h3>
+                    <p className="text-olive mb-4">{post.excerpt}</p>
+                    <div className="flex items-center text-olive text-sm mb-4">
+                      <span className="mr-2">{post.date}</span>|
+                      <span className="mx-2">{post.author}</span>|
+                      <span className="ml-2">{post.readTime}</span>
+                    </div>
+                    <Link to={`/blog/post/${post.id}`} className="btn-primary w-full text-center hover:scale-105">Read More</Link>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
 
-      {/* Newsletter Section */}
-      <motion.div 
-        className="section-padding bg-pearlson-navy"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className="container-custom">
-          <motion.div 
-            className="max-w-3xl mx-auto text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold text-white mb-6">
-              Subscribe to Our Newsletter
-            </h2>
-            <p className="text-gray-200 mb-8">
-              Stay updated with the latest language learning tips, events, and success stories
-            </p>
-            <form className="flex flex-col md:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pearlson-red focus:border-transparent"
-              />
-              <button
-                type="submit"
-                className="btn-primary whitespace-nowrap"
-              >
-                Subscribe
-              </button>
-            </form>
-          </motion.div>
-        </div>
-      </motion.div>
+        {/* Newsletter Section */}
+        <motion.div 
+          className="section-padding bg-pearlson-navy/95"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="container-custom">
+            <motion.div 
+              className="max-w-3xl mx-auto text-center glass-panel rounded-2xl p-8"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Subscribe to Our Newsletter
+              </h2>
+              <p className="text-gray-200 mb-8">
+                Stay updated with the latest language learning tips, events, and success stories
+              </p>
+              <form className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pearlson-red focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  className="btn-primary whitespace-nowrap"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 };

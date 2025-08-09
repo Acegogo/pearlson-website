@@ -26,7 +26,7 @@ function NairobiSlideshow() {
     return () => clearInterval(timer);
   }, []);
   return (
-    <div className="w-full rounded-lg overflow-hidden shadow-lg border border-orange bg-white mb-4 flex flex-col items-center">
+    <div className="w-full rounded-lg overflow-hidden shadow-lg border border-orange bg-white mb-4 flex flex-col items-center glass-card">
       <div className="relative w-full max-w-2xl aspect-video bg-teal flex items-center justify-center">
         <AnimatePresence initial={false}>
           <motion.img
@@ -138,20 +138,27 @@ const Events = () => {
   };
 
   return (
-    <div className="bg-cream">
+    <div
+      className="relative min-h-screen"
+      style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (253).jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      <div className="absolute inset-0 bg-black/10" />
+
       {/* Hero Section */}
       <motion.div 
-        className="relative bg-teal py-20"
+        className="relative py-20 bg-center bg-cover"
+        style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (286).jpg')" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="container-custom">
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center"
+            className="text-center glass-panel rounded-xl p-6 inline-block mx-auto"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
               Events & Celebrations
@@ -165,7 +172,7 @@ const Events = () => {
 
       {/* Tabs */}
       <motion.div 
-        className="section-padding"
+        className="section-padding relative z-10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -179,7 +186,7 @@ const Events = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex rounded-lg border border-orange p-1 bg-cream">
+            <div className="inline-flex rounded-lg border border-orange p-1 bg-cream/90 backdrop-blur-sm glass-card">
               <button
                 className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-300 ${
                   activeTab === 'upcoming'
@@ -214,7 +221,7 @@ const Events = () => {
             >
               {EVENTS.map((event, idx) => (
                 <motion.div key={event.name} variants={itemVariants} whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
-                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange flex flex-col h-full">
+                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange flex flex-col h-full glass-card">
                     {/* Heading Section */}
                     <div className="p-6 pb-0">
                       <div className="font-bold text-2xl md:text-3xl mb-2 text-black text-center">{event.name}</div>
@@ -261,7 +268,7 @@ const Events = () => {
                       <div className="flex justify-center mt-4">
                         <Link
                           to="/festival-register"
-                          className="mt-4 inline-block bg-[#FF4500] hover:bg-[#cc3700] text-white font-bold py-2 px-6 rounded shadow transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:ring-offset-2"
+                          className="mt-4 inline-block bg-[#FF4500] hover:bg-[#cc3700] text-white font-bold py-2 px-6 rounded shadow transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:ring-offset-2 glass-button"
                         >
                           Register for Festival
                         </Link>
@@ -289,7 +296,7 @@ const Events = () => {
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}
                 >
-                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream border border-orange">
+                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange glass-card">
                     {event.slideshow ? <NairobiSlideshow /> : event.images && event.images.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                         {event.images.map((img, imgIdx) => (

@@ -15,7 +15,7 @@ const Button = ({
   icon,
   iconPosition = 'left',
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 backdrop-blur-sm';
 
   const variantClasses = {
     primary: 'bg-pearlson-red text-white hover:bg-pearlson-red/90 focus:ring-pearlson-red',

@@ -13,6 +13,7 @@ import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import FestivalRegister from './pages/FestivalRegister';
 import CoursesRegister from './pages/CoursesRegister';
+import Workbooks from './pages/Workbooks';
 
 // ScrollToTop component
 function ScrollToTop() {
@@ -42,6 +43,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/festival-register" element={<FestivalRegister />} />
               <Route path="/courses-register" element={<CoursesRegister />} />
+              <Route path="/workbooks" element={<Workbooks />} />
             </Routes>
           </main>
           <Footer />
