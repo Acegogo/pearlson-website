@@ -14,7 +14,9 @@
  * The sheet should have columns: Timestamp, School Name, Contact Person, Email, Phone, Transaction Code, Category
  */
 
-const { GoogleSpreadsheet } = require('google-spreadsheet');
+// Support both named and default exports across library versions
+const googleSpreadsheetModule = require('google-spreadsheet');
+const GoogleSpreadsheet = googleSpreadsheetModule.GoogleSpreadsheet || googleSpreadsheetModule.default || googleSpreadsheetModule;
 
 // CORS headers
 const corsHeaders = {
@@ -109,8 +111,11 @@ exports.handler = async function(event) {
 
     console.log('Initializing Google Spreadsheet...');
     const doc = new GoogleSpreadsheet(process.env.FESTIVAL_SHEET_ID);
-    
-    // v5+ authentication - pass credentials directly
+    const libVersion = (() => { try { return require('google-spreadsheet/package.json').version; } catch { return 'unknown'; } })();
+    console.log('google-spreadsheet version:', libVersion);
+    if (typeof doc.useServiceAccountAuth !== 'function') {
+      throw new Error('google-spreadsheet auth method not found on instance (useServiceAccountAuth).');
+    }
     await doc.useServiceAccountAuth(creds);
     console.log('Authentication successful');
     

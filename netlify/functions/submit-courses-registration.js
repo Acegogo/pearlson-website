@@ -14,7 +14,9 @@
  * The sheet should have columns: Timestamp, School Name, Contact Person, Email, Phone, Number of Learners, Languages, Services
  */
 
-const { GoogleSpreadsheet } = require('google-spreadsheet');
+// Support both named and default exports across library versions
+const googleSpreadsheetModule = require('google-spreadsheet');
+const GoogleSpreadsheet = googleSpreadsheetModule.GoogleSpreadsheet || googleSpreadsheetModule.default || googleSpreadsheetModule;
 
 // CORS headers
 const corsHeaders = {
@@ -26,7 +28,7 @@ const corsHeaders = {
 // Resolve service account credentials from smaller env vars or fallback to base64 JSON
 function getServiceAccountCreds() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKeyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  const privateKeyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || process.env.GOOGLE_PRIVATE_KEY;
   if (email && privateKeyRaw) {
     // Support keys stored with escaped newlines
     const private_key = privateKeyRaw.replace(/\\n/g, '\n');
@@ -110,8 +112,11 @@ exports.handler = async function(event) {
 
     console.log('Initializing Google Spreadsheet...');
     const doc = new GoogleSpreadsheet(process.env.COURSES_SHEET_ID);
-    
-    // v5+ authentication - pass credentials directly
+    const libVersion = (() => { try { return require('google-spreadsheet/package.json').version; } catch { return 'unknown'; } })();
+    console.log('google-spreadsheet version:', libVersion);
+    if (typeof doc.useServiceAccountAuth !== 'function') {
+      throw new Error('google-spreadsheet auth method not found on instance (useServiceAccountAuth).');
+    }
     await doc.useServiceAccountAuth(creds);
     console.log('Authentication successful');
     
