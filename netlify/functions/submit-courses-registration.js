@@ -26,7 +26,7 @@ const corsHeaders = {
 // Resolve service account credentials from smaller env vars or fallback to base64 JSON
 function getServiceAccountCreds() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKeyRaw = process.env.GOOGLE_PRIVATE_KEY;
+  const privateKeyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
   if (email && privateKeyRaw) {
     // Support keys stored with escaped newlines
     const private_key = privateKeyRaw.replace(/\\n/g, '\n');
