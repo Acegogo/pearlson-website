@@ -14,9 +14,9 @@
  * The sheet should have columns: Timestamp, School Name, Contact Person, Email, Phone, Transaction Code, Category
  */
 
-// Support both named and default exports across library versions
-const googleSpreadsheetModule = require('google-spreadsheet');
-const GoogleSpreadsheet = googleSpreadsheetModule.GoogleSpreadsheet || googleSpreadsheetModule.default || googleSpreadsheetModule;
+// google-spreadsheet v4: use google-auth-library JWT auth
+const { GoogleSpreadsheet } = require('google-spreadsheet');
+const { JWT } = require('google-auth-library');
 
 // CORS headers
 const corsHeaders = {
@@ -109,14 +109,13 @@ exports.handler = async function(event) {
       };
     }
 
-    console.log('Initializing Google Spreadsheet...');
-    const doc = new GoogleSpreadsheet(process.env.FESTIVAL_SHEET_ID);
-    const libVersion = (() => { try { return require('google-spreadsheet/package.json').version; } catch { return 'unknown'; } })();
-    console.log('google-spreadsheet version:', libVersion);
-    if (typeof doc.useServiceAccountAuth !== 'function') {
-      throw new Error('google-spreadsheet auth method not found on instance (useServiceAccountAuth).');
-    }
-    await doc.useServiceAccountAuth(creds);
+    console.log('Initializing Google Spreadsheet auth (JWT)...');
+    const auth = new JWT({
+      email: creds.client_email,
+      key: creds.private_key,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+    const doc = new GoogleSpreadsheet(process.env.FESTIVAL_SHEET_ID, auth);
     console.log('Authentication successful');
     
     await doc.loadInfo();
