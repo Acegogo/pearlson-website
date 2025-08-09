@@ -3,8 +3,10 @@
  *
  * SETUP INSTRUCTIONS:
  * 1. Create a Google Cloud project, enable Google Sheets API.
- * 2. Create a service account, generate a JSON key, and base64-encode it.
- * 3. Add the base64-encoded JSON as a Netlify environment variable: GOOGLE_SHEETS_CREDENTIALS
+ * 2. Create a service account, generate a JSON key.
+ * 3. Preferred: set two env vars in Netlify → GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_PRIVATE_KEY
+ *    (paste the private key with literal newlines, or replace \n with real newlines). Fallback: base64
+ *    the entire JSON and set GOOGLE_SHEETS_CREDENTIALS (not recommended due to 4KB limits).
  * 4. Create a Google Sheet for festival registrations, share it with the service account email.
  * 5. Add the sheet ID as a Netlify environment variable: FESTIVAL_SHEET_ID
  * 6. Install google-spreadsheet: npm install google-spreadsheet
@@ -20,6 +22,27 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'POST, OPTIONS'
 };
+
+// Resolve service account credentials from smaller env vars or fallback to base64 JSON
+function getServiceAccountCreds() {
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKeyRaw = process.env.GOOGLE_PRIVATE_KEY;
+  if (email && privateKeyRaw) {
+    const private_key = privateKeyRaw.replace(/\\n/g, '\n');
+    return { client_email: email, private_key };
+  }
+  const b64 = process.env.GOOGLE_SHEETS_CREDENTIALS;
+  if (b64) {
+    try {
+      const decoded = Buffer.from(b64, 'base64').toString('utf8');
+      const parsed = JSON.parse(decoded);
+      return { client_email: parsed.client_email, private_key: parsed.private_key };
+    } catch (_) {
+      return null;
+    }
+  }
+  return null;
+}
 
 exports.handler = async function(event) {
   // Handle CORS preflight requests
@@ -41,19 +64,6 @@ exports.handler = async function(event) {
 
   try {
     // Check if environment variables are set
-    if (!process.env.GOOGLE_SHEETS_CREDENTIALS) {
-      console.error('GOOGLE_SHEETS_CREDENTIALS environment variable is not set');
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({ 
-          error: 'Server configuration error: Google Sheets credentials not configured',
-          details: 'Please check that GOOGLE_SHEETS_CREDENTIALS environment variable is set in Netlify',
-          testMode: true
-        })
-      };
-    }
-
     if (!process.env.FESTIVAL_SHEET_ID) {
       console.error('FESTIVAL_SHEET_ID environment variable is not set');
       return {
@@ -82,20 +92,17 @@ exports.handler = async function(event) {
       };
     }
 
-    console.log('Environment variables found, attempting to parse credentials...');
-    
-    let creds;
-    try {
-      creds = JSON.parse(Buffer.from(process.env.GOOGLE_SHEETS_CREDENTIALS, 'base64').toString('utf8'));
-      console.log('Credentials parsed successfully');
-    } catch (parseError) {
-      console.error('Error parsing credentials:', parseError);
+    console.log('Resolving Google service account credentials...');
+    const creds = getServiceAccountCreds();
+    if (!creds || !creds.client_email || !creds.private_key) {
+      console.error('Service account credentials not found or incomplete');
       return {
         statusCode: 500,
         headers: corsHeaders,
-        body: JSON.stringify({ 
-          error: 'Invalid Google Sheets credentials format',
-          details: 'Please check that GOOGLE_SHEETS_CREDENTIALS is properly base64 encoded'
+        body: JSON.stringify({
+          error: 'Server configuration error: Google Sheets credentials not configured',
+          details: 'Set GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_PRIVATE_KEY (preferred) or GOOGLE_SHEETS_CREDENTIALS (base64 JSON).',
+          testMode: true
         })
       };
     }
