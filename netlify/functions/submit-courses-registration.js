@@ -24,6 +24,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'POST, OPTIONS'
 };
+const jsonHeaders = { ...corsHeaders, 'Content-Type': 'application/json' };
 
 // Resolve service account credentials from smaller env vars or fallback to base64 JSON
 function getServiceAccountCreds() {
@@ -52,7 +53,7 @@ exports.handler = async function(event) {
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers: corsHeaders,
+      headers: jsonHeaders,
       body: ''
     };
   }
@@ -60,7 +61,7 @@ exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
     return { 
       statusCode: 405, 
-      headers: corsHeaders,
+      headers: jsonHeaders,
       body: 'Method Not Allowed' 
     };
   }
@@ -71,7 +72,7 @@ exports.handler = async function(event) {
       console.error('COURSES_SHEET_ID environment variable is not set');
       return {
         statusCode: 500,
-        headers: corsHeaders,
+        headers: jsonHeaders,
         body: JSON.stringify({ 
           error: 'Server configuration error: Google Sheet ID not configured',
           details: 'Please check that COURSES_SHEET_ID environment variable is set in Netlify',
@@ -86,7 +87,7 @@ exports.handler = async function(event) {
       console.log('Test mode: returning success without Google Sheets integration');
       return {
         statusCode: 200,
-        headers: corsHeaders,
+        headers: jsonHeaders,
         body: JSON.stringify({ 
           success: true, 
           message: 'Test mode - function is working but Google Sheets not configured',
@@ -101,7 +102,7 @@ exports.handler = async function(event) {
       console.error('Service account credentials not found or incomplete');
       return {
         statusCode: 500,
-        headers: corsHeaders,
+        headers: jsonHeaders,
         body: JSON.stringify({
           error: 'Server configuration error: Google Sheets credentials not configured',
           details: 'Set GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_PRIVATE_KEY (preferred) or GOOGLE_SHEETS_CREDENTIALS (base64 JSON).',
@@ -150,7 +151,7 @@ exports.handler = async function(event) {
     if (!data.schoolName || !data.contactPerson || !data.email || !data.phone || !data.numLearners || !data.languages) {
       return { 
         statusCode: 400, 
-        headers: corsHeaders,
+        headers: jsonHeaders,
         body: JSON.stringify({ error: 'Missing required fields.' }) 
       };
     }
@@ -172,21 +173,21 @@ exports.handler = async function(event) {
       console.error('Failed to add row:', rowErr);
       return {
         statusCode: 500,
-        headers: corsHeaders,
+        headers: jsonHeaders,
         body: JSON.stringify({ error: 'Failed to write to Google Sheet', details: rowErr.message || String(rowErr) })
       };
     }
 
     return {
       statusCode: 200,
-      headers: corsHeaders,
+      headers: jsonHeaders,
       body: JSON.stringify({ success: true })
     };
   } catch (err) {
     console.error('Error in courses registration function:', err);
     return {
       statusCode: 500,
-      headers: corsHeaders,
+      headers: jsonHeaders,
       body: JSON.stringify({ 
         error: err.message || 'Internal Server Error',
         details: 'Please check the server logs for more information'
