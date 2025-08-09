@@ -66,14 +66,19 @@ const CoursesRegistrationForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
-      
-      const data = await res.json();
-      
+      let data = {};
+      let raw = '';
+      try {
+        raw = await res.text();
+        data = raw ? JSON.parse(raw) : {};
+      } catch (_) {
+        // ignore JSON parse errors; we'll fall back to status
+      }
       if (res.ok) {
         setSuccess(true);
         setValues(initialState);
       } else {
-        setServerError(data.error || `Submission failed (${res.status}). Please try again.`);
+        setServerError((data && data.error) || `Submission failed (${res.status}). Please try again.`);
       }
     } catch (err) {
       console.error('Network error:', err);
