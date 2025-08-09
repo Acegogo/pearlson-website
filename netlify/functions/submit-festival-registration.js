@@ -21,10 +21,10 @@ const { JWT } = require('google-auth-library');
 // CORS headers
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Allow-Methods': 'POST, OPTIONS'
 };
-const jsonHeaders = { ...corsHeaders, 'Content-Type': 'application/json' };
+const jsonHeaders = { ...corsHeaders, 'Content-Type': 'application/json', Connection: 'close' };
 
 // Resolve service account credentials from smaller env vars or fallback to base64 JSON
 function getServiceAccountCreds() {
