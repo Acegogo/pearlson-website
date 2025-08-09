@@ -121,6 +121,26 @@ exports.handler = async function(event) {
     await doc.loadInfo();
     console.log('Document loaded successfully');
     const sheet = doc.sheetsByIndex[0];
+    // Ensure header row exists and contains required columns
+    try {
+      await sheet.loadHeaderRow();
+    } catch (_) {}
+    const existingHeaders = Array.isArray(sheet.headerValues) ? sheet.headerValues : [];
+    const requiredHeaders = [
+      'Timestamp',
+      'School Name',
+      'Contact Person',
+      'Email',
+      'Phone',
+      'Transaction Code',
+      'Categories'
+    ];
+    const needsUpdate = requiredHeaders.some(h => !existingHeaders.includes(h)) || existingHeaders.length === 0;
+    if (needsUpdate) {
+      const merged = Array.from(new Set([...existingHeaders, ...requiredHeaders]));
+      await sheet.setHeaderRow(merged);
+      console.log('Header row set/updated');
+    }
 
     console.log('Received data:', JSON.stringify(data, null, 2));
     
@@ -134,16 +154,25 @@ exports.handler = async function(event) {
     }
 
     console.log('Adding row to sheet...');
-    await sheet.addRow({
-      Timestamp: new Date().toISOString(),
-      'School Name': data.schoolName,
-      'Contact Person': data.contactPerson,
-      Email: data.email,
-      Phone: data.phone,
-      'Transaction Code': data.transactionCode,
-      'Categories': data.categories.join(', '),
-    });
-    console.log('Row added successfully');
+    try {
+      await sheet.addRow({
+        Timestamp: new Date().toISOString(),
+        'School Name': data.schoolName,
+        'Contact Person': data.contactPerson,
+        Email: data.email,
+        Phone: data.phone,
+        'Transaction Code': data.transactionCode,
+        'Categories': Array.isArray(data.categories) ? data.categories.join(', ') : String(data.categories || ''),
+      });
+      console.log('Row added successfully');
+    } catch (rowErr) {
+      console.error('Failed to add row:', rowErr);
+      return {
+        statusCode: 500,
+        headers: corsHeaders,
+        body: JSON.stringify({ error: 'Failed to write to Google Sheet', details: rowErr.message || String(rowErr) })
+      };
+    }
 
     return {
       statusCode: 200,
