@@ -142,7 +142,9 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white focus:outline-none"
+            className={`md:hidden focus:outline-none ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg

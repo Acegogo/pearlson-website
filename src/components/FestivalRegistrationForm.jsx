@@ -10,17 +10,12 @@ const initialState = {
 };
 
 const categories = [
-  'Kindergarten: singing game',
-  'Lower primary: song and dance',
-  'Lower primary: choral poem',
-  'Upper primary: choral verse',
-  'Upper primary: song and dance',
-  'Upper primary: rap',
-  'Junior school: skit/play',
-  'Junior school: modern dance',
-  'Solo pieces: solo verse',
-  'Solo pieces: public speaking',
-  'Solo pieces: solo song',
+  'Kindergarten: Singing game',
+  'Lower primary (grade 1-3): Song/song and dance/choral poem',
+  'Upper primary (grade 4-6): Choral verse/song and dance/rap',
+  'Junior school (grade 7-9): Skit/play/modern dance',
+  'Secondary school: Skit, song, poem, choral verse',
+  'Solo pieces (any grade): Solo verse/public speaking/solo song',
 ];
 
 function validate(values) {
