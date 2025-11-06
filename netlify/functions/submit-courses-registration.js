@@ -157,8 +157,10 @@ exports.handler = async function(event) {
     }
 
     console.log('Adding row to sheet...');
+    let row;
     try {
-      await sheet.addRow({
+      // Create row data object
+      const rowData = {
         Timestamp: new Date().toISOString(),
         'School Name': data.schoolName,
         'Contact Person': data.contactPerson,
@@ -167,8 +169,17 @@ exports.handler = async function(event) {
         'Number of Learners': data.numLearners,
         Languages: Array.isArray(data.languages) ? data.languages.join(', ') : String(data.languages || ''),
         Services: Array.isArray(data.services) ? data.services.join(', ') : String(data.services || ''),
-      });
-      console.log('Row added successfully');
+      };
+      
+      // Add row and await the promise to fully resolve
+      row = await sheet.addRow(rowData);
+      
+      // Ensure the row is fully saved (some versions require explicit save)
+      if (row && typeof row.save === 'function') {
+        await row.save();
+      }
+      
+      console.log('Row added and saved successfully');
     } catch (rowErr) {
       console.error('Failed to add row:', rowErr);
       return {
@@ -178,10 +189,14 @@ exports.handler = async function(event) {
       };
     }
 
+    // Return response only after ALL operations complete successfully
     return {
       statusCode: 200,
       headers: jsonHeaders,
-      body: JSON.stringify({ success: true })
+      body: JSON.stringify({ 
+        success: true,
+        message: 'Registration submitted successfully'
+      })
     };
   } catch (err) {
     console.error('Error in courses registration function:', err);
