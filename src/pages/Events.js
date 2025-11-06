@@ -37,6 +37,37 @@ const COAST_IMAGES = [
   'IMG-20250410-WA0025.jpg',
 ];
 
+function NairobiSlideshow() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setIndex(i => (i + 1) % NAIROBI_IMAGES.length), 3500);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <div className="w-full rounded-lg overflow-hidden shadow-lg border border-orange bg-white mb-4 flex flex-col items-center glass-card">
+      <div className="relative w-full max-w-2xl aspect-video bg-teal flex items-center justify-center">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={NAIROBI_IMAGES[index]}
+            src={`/Images/Past Events/Nairobi Edition/${NAIROBI_IMAGES[index]}`}
+            alt={`Nairobi Edition ${index + 1}`}
+            className="w-full h-full object-contain absolute top-0 left-0"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.6 }}
+          />
+        </AnimatePresence>
+      </div>
+      <div className="flex justify-center gap-1 mt-2 pb-2">
+        {NAIROBI_IMAGES.slice(0, 6).map((_, i) => (
+          <span key={i} className={`inline-block w-2 h-2 rounded-full ${i === index ? 'bg-orange' : 'bg-gray-300'}`}></span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CoastSlideshow() {
   const [index, setIndex] = useState(0);
   useEffect(() => {
