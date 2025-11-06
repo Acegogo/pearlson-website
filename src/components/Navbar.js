@@ -42,7 +42,10 @@ const Navbar = () => {
       label: 'Events',
       dropdown: [
         { path: '/events', label: 'All Events' },
-        { path: '/festival-register', label: 'Register for Festival' }
+        { path: '/festival-register/nairobi-2026', label: 'Nairobi Edition 2026' },
+        { path: '/festival-register/coast-2026', label: 'Coast Edition 2026' },
+        { path: '/festival-register/riftvalley-2026', label: 'Rift Valley Edition 2026' },
+        { path: '/festival-register/western-2026', label: 'Western Edition 2026' }
       ]
     },
     { path: '/blog', label: 'Blog' },

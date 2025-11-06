@@ -7,6 +7,119 @@ import Badge from '../components/Badge';
 const Blog = () => {
   const posts = [
     {
+      id: 7,
+      title: 'Announcing the 2026 Multilingual Festival National Tour',
+      excerpt: 'Join us for an exciting national tour featuring four regional editions across Kenya. Discover dates, locations, and how to register for this groundbreaking celebration of language diversity.',
+      image: 'IMG-20250410-WA0038.jpg',
+      date: 'November 1, 2025',
+      author: 'Pearlson Team',
+      category: 'Announcements',
+      readTime: '5 min read',
+      content: `
+        We are thrilled to announce the 2026 Multilingual Festival National Tour, our most ambitious celebration of language diversity yet! This year, we're taking the festival across Kenya with four regional editions, bringing together schools, students, and communities in a nationwide celebration of multilingual excellence.
+
+        **The Four-Edition National Tour:**
+
+        **Nairobi Edition - February 14, 2026**
+        Kickstarting our national tour in the capital city, the Nairobi Edition will bring together schools from across the metropolitan area. This edition sets the tone for the entire tour, showcasing the incredible linguistic talents of students in Kenya's educational hub.
+
+        **Coast Edition - February 27, 2026**
+        Celebrating coastal diversity and cultural fusion, the Coast Edition highlights the unique linguistic heritage of Kenya's coastal region. This edition emphasizes the rich cultural exchange between Swahili, Arabic, and other languages that thrive along the coast.
+
+        **Rift Valley Edition - March 7, 2026**
+        Expanding horizons across the entire Rift Valley region, this edition brings together schools from one of Kenya's most diverse regions. Students will showcase performances that reflect the region's multicultural landscape.
+
+        **Western Edition - March 21, 2026**
+        Our grand finale celebration, the Western Edition marks the culmination of our national tour. This edition brings together the best of what we've seen across the country, creating a spectacular finale that celebrates Kenya's linguistic diversity.
+
+        **What's New for 2026:**
+
+        **Enhanced Competition Categories**
+        We've expanded our categories to include more opportunities for students at different levels, from kindergarten through secondary school. Each category celebrates different aspects of language learning and cultural expression.
+
+        **Improved Registration Process**
+        Our new online registration system makes it easier than ever for schools to register. Each edition has its own dedicated registration form, streamlining the process and ensuring accurate data collection.
+
+        **National Recognition**
+        Winners from each regional edition will be recognized at a special national ceremony, celebrating excellence in multilingual education across Kenya.
+
+        **Early Bird Registration**
+        Schools that register before December 31, 2025, will receive special benefits including priority performance slots and discounted entry fees. Don't miss this opportunity to secure your spot!
+
+        **How to Register:**
+
+        Registration is now open for all four editions. Simply visit our Events page and click on the "Register Now" button for your preferred edition. Each edition has its own registration form, making it easy to sign up for the location most convenient for your school.
+
+        **Our Vision for 2026:**
+
+        The 2026 National Tour represents our commitment to making multilingual education accessible across Kenya. By bringing the festival to different regions, we're ensuring that students from all corners of the country have the opportunity to showcase their linguistic talents and celebrate cultural diversity.
+
+        "This national tour is a testament to our belief that language education should be accessible to all Kenyan students," says Flency Atswenje, founder of Pearlson Languages. "We're excited to see how schools across the country will bring their unique perspectives to this celebration of multilingualism."
+
+        Join us on this incredible journey as we celebrate language diversity across Kenya. Register today and be part of the 2026 Multilingual Festival National Tour!
+      `
+    },
+    {
+      id: 8,
+      title: 'Celebrating Success: Reflecting on the 2025 Coast Multilingual Festival',
+      excerpt: 'A comprehensive look back at the 2025 Coast Multilingual Festival, highlighting student achievements, cultural exchanges, and the lasting impact on participating schools and communities.',
+      image: 'IMG-20250410-WA0107.jpg',
+      date: 'November 7, 2025',
+      author: 'Flency Atswenje',
+      category: 'Events',
+      readTime: '4 min read',
+      content: `
+        The 2025 Coast Multilingual Festival was a resounding success, bringing together schools from across the coastal region for a vibrant celebration of language diversity and cultural exchange. As we reflect on this incredible event, we're filled with gratitude for the participants, organizers, and community members who made it possible.
+
+        **Event Highlights:**
+
+        **Record Participation**
+        Over 25 schools participated in the 2025 Coast Edition, with more than 500 students showcasing their multilingual talents. The event featured performances in eight different languages, including English, Swahili, French, German, Arabic, and local languages.
+
+        **Outstanding Performances**
+        Students delivered exceptional performances across all categories, from kindergarten singing games to secondary school skits. The creativity and passion displayed by participants were truly inspiring, demonstrating the power of multilingual education.
+
+        **Cultural Exchange**
+        One of the most beautiful aspects of the festival was the cultural exchange that took place. Students from different backgrounds came together, sharing their languages, traditions, and perspectives. This exchange created lasting friendships and a deeper appreciation for Kenya's linguistic diversity.
+
+        **Impact on Schools**
+
+        **Enhanced Language Programs**
+        Many participating schools reported increased interest in language learning programs following the festival. The event served as a catalyst for schools to expand their language offerings and invest more in multilingual education.
+
+        **Student Confidence**
+        Teachers and parents noted significant improvements in student confidence, particularly in public speaking and performance. The festival provided a safe and supportive environment for students to showcase their skills, building self-esteem and communication abilities.
+
+        **Community Engagement**
+        The festival brought together not just schools, but entire communities. Parents, local leaders, and community members came out to support the students, creating a sense of pride and unity around multilingual education.
+
+        **Lessons Learned**
+
+        **The Power of Regional Focus**
+        Focusing on a specific region allowed us to create a more intimate and meaningful experience. Schools were able to connect with others in their area, fostering regional collaboration and support networks.
+
+        **Importance of Preparation**
+        The success of the festival highlighted the importance of thorough preparation. Schools that invested time in practice and preparation delivered the most polished performances, demonstrating the value of dedicated effort.
+
+        **Community Support Matters**
+        The overwhelming community support showed us that multilingual education resonates deeply with Kenyan communities. This support is essential for the continued growth and success of language education programs.
+
+        **Testimonials**
+
+        "The Coast Festival was transformative for our students," says Principal Jane Mwangi of Mombasa Primary School. "They gained confidence, made new friends, and developed a deeper appreciation for languages. We're already preparing for 2026!"
+
+        "My daughter participated in the French performance category," shares parent Ahmed Hassan. "The experience boosted her confidence tremendously, and she's now more enthusiastic about learning languages than ever before."
+
+        **Looking Forward to 2026**
+
+        Building on the success of the 2025 Coast Edition, we're excited to expand the festival into a national tour in 2026. The lessons learned from this event will inform our approach as we bring multilingual celebrations to Nairobi, Rift Valley, and Western regions.
+
+        The 2025 Coast Multilingual Festival was more than just an event—it was a celebration of Kenya's linguistic diversity, a showcase of student talent, and a testament to the power of multilingual education. As we move forward, we carry with us the inspiration and lessons from this incredible experience.
+
+        Thank you to everyone who made the 2025 Coast Edition possible. Your participation, support, and enthusiasm made it a truly memorable event. We can't wait to see what 2026 brings!
+      `
+    },
+    {
       id: 1,
       title: 'How Tutors Boost CBC Language Skills in Kenyan Schools',
       excerpt: 'Discover how our dedicated tutors are enhancing language education in Kenyan primary schools through the CBC curriculum, creating engaging and effective learning experiences.',

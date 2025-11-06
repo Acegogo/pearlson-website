@@ -11,18 +11,36 @@ const NAIROBI_IMAGES = [
   '1 (253).jpg', '1 (258).jpg', '1 (263).jpg', '1 (266).jpg', '1 (270).jpg', '1 (280).jpg', '1 (281).jpg', '1 (286).jpg', '1 (289).jpg', '1 (294).jpg', '1 (295).jpg'
 ];
 
-function getCountdown(targetDate) {
-  const now = new Date();
-  const diff = targetDate - now;
-  const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
-  const hours = Math.max(0, Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-  return { days, hours };
+function calculateCountdown(targetDate) {
+  const now = new Date().getTime();
+  const distance = targetDate.getTime() - now;
+  
+  if (distance < 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+  
+  return {
+    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((distance % (1000 * 60)) / 1000)
+  };
 }
 
-function NairobiSlideshow() {
+const COAST_IMAGES = [
+  'IMG-20250410-WA0027.jpg',
+  'IMG-20250410-WA0083.jpg',
+  'IMG-20250410-WA0093.jpg',
+  'IMG-20250410-WA0105.jpg',
+  'IMG-20250410-WA0022.jpg',
+  'IMG-20250410-WA0023.jpg',
+  'IMG-20250410-WA0025.jpg',
+];
+
+function CoastSlideshow() {
   const [index, setIndex] = useState(0);
   useEffect(() => {
-    const timer = setInterval(() => setIndex(i => (i + 1) % NAIROBI_IMAGES.length), 3500);
+    const timer = setInterval(() => setIndex(i => (i + 1) % COAST_IMAGES.length), 3500);
     return () => clearInterval(timer);
   }, []);
   return (
@@ -30,9 +48,9 @@ function NairobiSlideshow() {
       <div className="relative w-full max-w-2xl aspect-video bg-teal flex items-center justify-center">
         <AnimatePresence initial={false}>
           <motion.img
-            key={NAIROBI_IMAGES[index]}
-            src={`/Images/Past Events/Nairobi Edition/${NAIROBI_IMAGES[index]}`}
-            alt={`Nairobi Edition ${index + 1}`}
+            key={COAST_IMAGES[index]}
+            src={`/Images/${COAST_IMAGES[index]}`}
+            alt={`Coast Edition ${index + 1}`}
             className="w-full h-full object-contain absolute top-0 left-0"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -42,7 +60,7 @@ function NairobiSlideshow() {
         </AnimatePresence>
       </div>
       <div className="flex justify-center gap-1 mt-2 pb-2">
-        {NAIROBI_IMAGES.slice(0, 6).map((_, i) => (
+        {COAST_IMAGES.slice(0, 6).map((_, i) => (
           <span key={i} className={`inline-block w-2 h-2 rounded-full ${i === index ? 'bg-orange' : 'bg-gray-300'}`}></span>
         ))}
       </div>
@@ -52,31 +70,79 @@ function NairobiSlideshow() {
 
 const EVENTS = [
   {
-    name: 'Multilingual Festival - Mombasa Edition',
-    video: '/Images/Upcoming Events/mombasa event.mp4',
-    date: new Date('2025-09-27T08:00:00+03:00'),
-    location: 'Mombasa, Kenya',
-    bannerAlt: 'Mombasa Festival Banner',
+    id: 'nairobi-2026',
+    name: 'Multilingual Festival - Nairobi Edition 2026',
+    date: new Date('2026-02-14T08:00:00+03:00'),
+    location: 'Nairobi, Kenya',
+    description: 'Kickstarting our national tour in the capital city',
     tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
     theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
     categories: 'Kindergarten to Junior School competitions',
     prizes: 'Trophies, medals, and school grants for winners!',
-    cta: 'Secure Your Spot →',
+    registerRoute: '/festival-register/nairobi-2026',
+    poster: '/Images/Upcoming Events/nairobi edition 2026.png',
+  },
+  {
+    id: 'coast-2026',
+    name: 'Multilingual Festival - Coast Edition 2026',
+    date: new Date('2026-02-27T08:00:00+03:00'),
+    location: 'Coast Region, Kenya',
+    description: 'Celebrating coastal diversity and cultural fusion',
+    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
+    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
+    categories: 'Kindergarten to Junior School competitions',
+    prizes: 'Trophies, medals, and school grants for winners!',
+    registerRoute: '/festival-register/coast-2026',
+    poster: '/Images/Upcoming Events/MOMBASA EDITION 2026.png',
+  },
+  {
+    id: 'riftvalley-2026',
+    name: 'Multilingual Festival - Rift Valley Edition 2026',
+    date: new Date('2026-03-07T08:00:00+03:00'),
+    location: 'Rift Valley Region, Kenya',
+    description: 'Expanding horizons across the entire Rift Valley region',
+    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
+    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
+    categories: 'Kindergarten to Junior School competitions',
+    prizes: 'Trophies, medals, and school grants for winners!',
+    registerRoute: '/festival-register/riftvalley-2026',
+    poster: '/Images/Upcoming Events/riftvalley edition 2026.png',
+  },
+  {
+    id: 'western-2026',
+    name: 'Multilingual Festival - Western Edition 2026',
+    date: new Date('2026-03-21T08:00:00+03:00'),
+    location: 'Western Region, Kenya',
+    description: 'Grand finale celebration of our national tour',
+    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
+    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
+    categories: 'Kindergarten to Junior School competitions',
+    prizes: 'Trophies, medals, and school grants for winners!',
+    registerRoute: '/festival-register/western-2026',
+    poster: '/Images/Upcoming Events/western edition 2026.jpg',
   },
 ];
 
 const Events = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
-  const [countdowns, setCountdowns] = useState(EVENTS.map(e => getCountdown(e.date)));
+  const [countdowns, setCountdowns] = useState(EVENTS.map(e => calculateCountdown(e.date)));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountdowns(EVENTS.map(e => getCountdown(e.date)));
-    }, 60 * 60 * 1000); // update every hour
+      setCountdowns(EVENTS.map(e => calculateCountdown(e.date)));
+    }, 1000); // update every second for live countdown
     return () => clearInterval(interval);
   }, []);
 
   const pastEvents = [
+    {
+      title: '2025 Coast Multilingual Edition',
+      date: 'September 27, 2025',
+      location: 'Coast Region, Kenya',
+      description: `The 2025 Coast Multilingual Festival brought together schools from across the coastal region for a vibrant celebration of language diversity. Students showcased their talents in multiple languages including English, Swahili, French, German, and local languages. The event featured dynamic performances, cultural exhibitions, and inspiring moments of linguistic excellence.`,
+      images: COAST_IMAGES.map(img => `/Images/${img}`),
+      slideshow: true,
+    },
     {
       title: 'Multilingual Festival Nairobi Edition',
       date: 'June 21, 2025',
@@ -225,33 +291,35 @@ const Events = () => {
                     {/* Heading Section */}
                     <div className="p-6 pb-0">
                       <div className="font-bold text-2xl md:text-3xl mb-2 text-black text-center">{event.name}</div>
-                      <div className="italic text-orange text-base md:text-lg text-center mb-2">A day of creativity, connection, and multilingual magic!</div>
+                      <div className="italic text-orange text-base md:text-lg text-center mb-2">{event.description}</div>
                       <div className="text-orange font-semibold mb-2 text-center">{event.tagline}</div>
                     </div>
-                    {/* Video Section */}
-                    <div className="w-full flex justify-center mb-4">
-                      <div className="w-full max-w-md aspect-video bg-teal rounded-lg border border-orange flex items-center justify-center">
-                        <video
-                          className="w-full h-full object-contain rounded-lg"
-                          controls
-                          poster="/Images/PLS_logo.png"
-                        >
-                          <source src={event.video} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
+                    {/* Poster Image */}
+                    {event.poster && (
+                      <div className="w-full px-6 mb-4">
+                        <img
+                          src={event.poster}
+                          alt={`${event.name} poster`}
+                          className="w-full h-auto rounded-lg border border-orange shadow-md object-contain"
+                        />
                       </div>
-                    </div>
+                    )}
                     {/* Body Section */}
                     <div className="flex-1 flex flex-col justify-between px-6 pb-6">
                       <div>
                         <div className="flex flex-col items-center mb-4">
-                          <div className="text-lg font-bold text-black">{event.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                          <div className="flex items-center gap-2 text-olive mt-2">
-                            <svg className="w-7 h-7 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                          <div className="text-lg font-bold text-black mb-2">{event.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                          <div className="text-olive mb-3">{event.location}</div>
+                          <div className="flex flex-col items-center gap-2 text-olive mt-2">
                             <span className="font-semibold text-lg">Countdown:</span>
-                            <span className="font-mono text-2xl bg-orange/10 px-4 py-1 rounded-lg shadow text-orange border border-orange animate-pulse">
-                              {countdowns[idx].days} <span className="font-bold">days</span> {countdowns[idx].hours} <span className="font-bold">hours</span>
-                            </span>
+                            <div className="font-mono text-xl md:text-2xl bg-orange/10 px-4 py-2 rounded-lg shadow text-orange border border-orange animate-pulse text-center">
+                              <div className="flex gap-2 items-center justify-center flex-wrap">
+                                <span className="font-bold">{countdowns[idx].days}</span> <span className="text-sm">days</span>
+                                <span className="font-bold">{countdowns[idx].hours}</span> <span className="text-sm">hours</span>
+                                <span className="font-bold">{countdowns[idx].minutes}</span> <span className="text-sm">min</span>
+                                <span className="font-bold">{countdowns[idx].seconds}</span> <span className="text-sm">sec</span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div className="mb-2 text-center">
@@ -267,10 +335,10 @@ const Events = () => {
                       {/* Footer Section with CTA */}
                       <div className="flex justify-center mt-4">
                         <Link
-                          to="/festival-register"
+                          to={event.registerRoute}
                           className="mt-4 inline-block bg-[#FF4500] hover:bg-[#cc3700] text-white font-bold py-2 px-6 rounded shadow transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:ring-offset-2 glass-button"
                         >
-                          Register for Festival
+                          Register Now
                         </Link>
                       </div>
                     </div>
@@ -297,7 +365,11 @@ const Events = () => {
                   whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}
                 >
                   <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange glass-card">
-                    {event.slideshow ? <NairobiSlideshow /> : event.images && event.images.length > 0 && (
+                    {event.slideshow && event.title === 'Multilingual Festival Nairobi Edition' ? (
+                      <NairobiSlideshow />
+                    ) : event.slideshow && event.title === '2025 Coast Multilingual Edition' ? (
+                      <CoastSlideshow />
+                    ) : event.images && event.images.length > 0 && (
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
                         {event.images.map((img, imgIdx) => (
                           <motion.img

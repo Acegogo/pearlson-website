@@ -18,4 +18,9 @@
 # Force Netlify to use this configuration
 [context.production]
   command = "npm run build"
-  publish = "build" 
+  publish = "build"
+
+# Netlify Forms Configuration
+# Forms are automatically detected and processed by Netlify
+# Email notifications can be configured in Netlify dashboard under Forms settings
+# Form submissions will be available in Netlify dashboard > Forms 

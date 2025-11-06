@@ -125,10 +125,10 @@ const Home = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/festival-register"
+                  to="/events"
                   className="btn-primary text-center hover:scale-105"
                 >
-                  Mombasa Multilingual Festival Registration
+                  View 2026 Festival Tour
                 </Link>
                 <Link
                   to="/contact"

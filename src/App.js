@@ -12,6 +12,10 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import FestivalRegister from './pages/FestivalRegister';
+import NairobiFestivalRegister from './pages/NairobiFestivalRegister';
+import CoastFestivalRegister from './pages/CoastFestivalRegister';
+import RiftValleyFestivalRegister from './pages/RiftValleyFestivalRegister';
+import WesternFestivalRegister from './pages/WesternFestivalRegister';
 import CoursesRegister from './pages/CoursesRegister';
 import Workbooks from './pages/Workbooks';
 
@@ -42,6 +46,10 @@ function App() {
               <Route path="/blog/post/:id" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/festival-register" element={<FestivalRegister />} />
+              <Route path="/festival-register/nairobi-2026" element={<NairobiFestivalRegister />} />
+              <Route path="/festival-register/coast-2026" element={<CoastFestivalRegister />} />
+              <Route path="/festival-register/riftvalley-2026" element={<RiftValleyFestivalRegister />} />
+              <Route path="/festival-register/western-2026" element={<WesternFestivalRegister />} />
               <Route path="/courses-register" element={<CoursesRegister />} />
               <Route path="/workbooks" element={<Workbooks />} />
             </Routes>
