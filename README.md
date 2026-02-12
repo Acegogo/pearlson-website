@@ -87,6 +87,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 Pearlson Languages and Solutions
-- Email: info@pearlsonlanguages.co.ke
+- Email: info@pearlsonlanguages.com
 - Phone: 0727211822
 - Website: www.pearlsonlanguages.com 

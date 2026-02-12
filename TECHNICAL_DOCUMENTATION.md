@@ -763,7 +763,7 @@ const auth = new JWT({
    - Submit handler (currently logs to console)
 
 2. **Contact Information:**
-   - Email: info@pearlsonlanguages.co.ke
+   - Email: info@pearlsonlanguages.com
    - Phone: +254 727 211 822
    - Address: Nairobi, Kenya
 

@@ -213,7 +213,7 @@ const Contact = () => {
                     </svg>
                     <div>
                       <h3 className="font-semibold text-black">Email</h3>
-                      <p className="text-olive">info@pearlsonlanguages.co.ke</p>
+                      <p className="text-olive">info@pearlsonlanguages.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
