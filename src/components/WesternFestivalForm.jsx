@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 
+const languages = [
+  'English',
+  'Kiswahili',
+  'French',
+  'German',
+  'Arabic',
+  'Mandarin',
+  'Spanish',
+  'Sign Language',
+  'Indigenous Languages',
+];
+
 const categories = [
   'Kindergarten: Singing game',
   'Lower primary (grade 1-3): Song/song and dance/choral poem',
   'Upper primary (grade 4-6): Choral verse/song and dance/rap',
   'Junior school (grade 7-9): Skit/play/modern dance',
-  'Secondary school: Skit, song, poem, choral verse',
+  'Grade 10: Skit, song, poem, choral verse',
+  'Form 3 & 4: Skit, song, poem, choral verse',
   'Solo pieces (any grade): Solo verse/public speaking/solo song',
 ];
 
@@ -17,6 +30,7 @@ const WesternFestivalForm = () => {
     phone: '',
     'transaction-code': '',
     categories: [],
+    languages: [],
   });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -24,14 +38,24 @@ const WesternFestivalForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name === 'categories') {
-      setFormData(prev => ({
-        ...prev,
-        categories: checked
-          ? [...prev.categories, value]
-          : prev.categories.filter(c => c !== value)
-      }));
-      setErrors(prev => ({ ...prev, categories: undefined }));
+    if (type === 'checkbox') {
+      if (name === 'categories') {
+        setFormData(prev => ({
+          ...prev,
+          categories: checked
+            ? [...prev.categories, value]
+            : prev.categories.filter(c => c !== value)
+        }));
+        setErrors(prev => ({ ...prev, categories: undefined }));
+      } else if (name === 'languages') {
+        setFormData(prev => ({
+          ...prev,
+          languages: checked
+            ? [...prev.languages, value]
+            : prev.languages.filter(l => l !== value)
+        }));
+        setErrors(prev => ({ ...prev, languages: undefined }));
+      }
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
       setErrors(prev => ({ ...prev, [name]: undefined }));
@@ -49,6 +73,7 @@ const WesternFestivalForm = () => {
     if (!formData['transaction-code']) newErrors['transaction-code'] = 'M-Pesa transaction code is required.';
     else if (!/^[A-Za-z0-9]{10,12}$/.test(formData['transaction-code'])) newErrors['transaction-code'] = 'Transaction code must be 10-12 alphanumeric characters.';
     if (!formData.categories.length) newErrors.categories = 'At least one category is required.';
+    if (!formData.languages.length) newErrors.languages = 'At least one language is required.';
     return newErrors;
   };
 
@@ -65,13 +90,19 @@ const WesternFestivalForm = () => {
 
     const form = e.target;
     const formDataObj = new FormData(form);
-    
+
     // Convert categories array to multiple form values for Netlify
     formDataObj.delete('categories');
     formData.categories.forEach(category => {
       formDataObj.append('categories', category);
     });
-    
+
+    // Convert languages array to multiple form values for Netlify
+    formDataObj.delete('languages');
+    formData.languages.forEach(language => {
+      formDataObj.append('languages', language);
+    });
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -86,6 +117,7 @@ const WesternFestivalForm = () => {
           phone: '',
           'transaction-code': '',
           categories: [],
+          languages: [],
         });
       })
       .catch((error) => {
@@ -129,7 +161,7 @@ const WesternFestivalForm = () => {
 
       <h2 className="text-2xl font-bold mb-4 text-[#FF4500]">Multilingual Festival Registration - Western Edition 2026</h2>
       <p className="mb-4 text-gray-200">
-        Pay <span className="font-bold">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.<br/>
+        Pay <span className="font-bold">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.<br />
         Each pupil pays <span className="font-bold">Ksh 500</span> entry fee on event day using the same Pay-Bill. <span className="font-bold">No cash accepted.</span>
       </p>
 
@@ -209,6 +241,26 @@ const WesternFestivalForm = () => {
       </div>
 
       <div className="mb-4">
+        <span className="block font-semibold mb-1">Languages * (Select all that apply)</span>
+        <div className="max-h-48 overflow-y-auto border border-gray-300 rounded p-3 bg-white">
+          {languages.map(lang => (
+            <label key={lang} className="flex items-center mb-2 hover:bg-gray-50 p-1 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                name="languages"
+                value={lang}
+                checked={formData.languages.includes(lang)}
+                onChange={handleChange}
+                className="mr-3 w-4 h-4 text-[#FF4500] bg-gray-100 border-gray-300 rounded focus:ring-[#FF4500] focus:ring-2"
+              />
+              <span className="text-gray-800 text-sm">{lang}</span>
+            </label>
+          ))}
+        </div>
+        {errors.languages && <div className="text-red-600 text-sm mt-1">{errors.languages}</div>}
+      </div>
+
+      <div className="mb-4">
         <span className="block font-semibold mb-1">Performance Categories * (Select all that apply)</span>
         <div className="max-h-48 overflow-y-auto border border-gray-300 rounded p-3 bg-white">
           {categories.map(cat => (
@@ -240,4 +292,3 @@ const WesternFestivalForm = () => {
 };
 
 export default WesternFestivalForm;
-

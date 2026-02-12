@@ -1,197 +1,269 @@
 import React, { useState } from 'react';
 
-const initialState = {
-  schoolName: '',
-  contactPerson: '',
-  email: '',
-  phone: '',
-  transactionCode: '',
-  categories: [],
-};
+const languages = [
+  'English',
+  'Kiswahili',
+  'French',
+  'German',
+  'Arabic',
+  'Mandarin',
+  'Spanish',
+  'Sign Language',
+  'Indigenous Languages',
+];
 
 const categories = [
   'Kindergarten: Singing game',
   'Lower primary (grade 1-3): Song/song and dance/choral poem',
   'Upper primary (grade 4-6): Choral verse/song and dance/rap',
   'Junior school (grade 7-9): Skit/play/modern dance',
-  'Secondary school: Skit, song, poem, choral verse',
+  'Grade 10: Skit, song, poem, choral verse',
+  'Form 3 & 4: Skit, song, poem, choral verse',
   'Solo pieces (any grade): Solo verse/public speaking/solo song',
 ];
 
-function validate(values) {
-  const errors = {};
-  if (!values.schoolName) errors.schoolName = 'School name is required.';
-  if (!values.contactPerson) errors.contactPerson = 'Contact person is required.';
-  if (!values.email) errors.email = 'Email is required.';
-  else if (!/^\S+@\S+\.\S+$/.test(values.email)) errors.email = 'Invalid email address.';
-  if (!values.phone) errors.phone = 'Phone number is required.';
-  else if (!/^\+254\d{9}$/.test(values.phone)) errors.phone = 'Phone must be in +254xxxxxxxxx format.';
-  if (!values.transactionCode) errors.transactionCode = 'M-Pesa transaction code is required.';
-  else if (!/^[A-Za-z0-9]{10,12}$/.test(values.transactionCode)) errors.transactionCode = 'Transaction code must be 10-12 alphanumeric characters.';
-  if (!values.categories.length) errors.categories = 'At least one category is required.';
-  return errors;
-}
+const initialState = {
+  'school-name': '',
+  'contact-person': '',
+  email: '',
+  phone: '',
+  'transaction-code': '',
+  categories: [],
+  languages: [],
+};
 
 const FestivalRegistrationForm = () => {
-  const [values, setValues] = useState(initialState);
+  const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [serverError, setServerError] = useState('');
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name === 'categories') {
-      setValues(v => ({ 
-        ...v, 
-        categories: checked 
-          ? [...v.categories, value] 
-          : v.categories.filter(c => c !== value) 
-      }));
-      setErrors({ ...errors, categories: undefined });
+    if (type === 'checkbox') {
+      if (name === 'categories') {
+        setFormData(prev => ({
+          ...prev,
+          categories: checked
+            ? [...prev.categories, value]
+            : prev.categories.filter(c => c !== value)
+        }));
+        setErrors(prev => ({ ...prev, categories: undefined }));
+      } else if (name === 'languages') {
+        setFormData(prev => ({
+          ...prev,
+          languages: checked
+            ? [...prev.languages, value]
+            : prev.languages.filter(l => l !== value)
+        }));
+        setErrors(prev => ({ ...prev, languages: undefined }));
+      }
     } else {
-      setValues({ ...values, [name]: value });
-      setErrors({ ...errors, [name]: undefined });
+      setFormData(prev => ({ ...prev, [name]: value }));
+      setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const validation = validate(values);
-    setErrors(validation);
-    if (Object.keys(validation).length > 0) return;
-    setSubmitting(true);
-    setServerError('');
-    try {
-      const res = await fetch('/.netlify/functions/submit-festival-registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-      let data = {};
-      let raw = '';
-      try {
-        raw = await res.text();
-        data = raw ? JSON.parse(raw) : {};
-      } catch (_) {
-        // ignore JSON parse errors; we'll fall back to status
-      }
-      if (res.ok) {
-        setSuccess(true);
-        setValues(initialState);
-      } else {
-        setServerError((data && data.error) || `Submission failed (${res.status}). Please try again.`);
-      }
-    } catch (err) {
-      console.error('Network error:', err);
-      setServerError('Network error. Please check your internet connection and try again.');
-    } finally {
-      setSubmitting(false);
-    }
+  const validate = () => {
+    const newErrors = {};
+    if (!formData['school-name']) newErrors['school-name'] = 'School name is required.';
+    if (!formData['contact-person']) newErrors['contact-person'] = 'Contact person is required.';
+    if (!formData.email) newErrors.email = 'Email is required.';
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Invalid email address.';
+    if (!formData.phone) newErrors.phone = 'Phone number is required.';
+    else if (!/^\+254\d{9}$/.test(formData.phone)) newErrors.phone = 'Phone must be in +254xxxxxxxxx format.';
+    if (!formData['transaction-code']) newErrors['transaction-code'] = 'M-Pesa transaction code is required.';
+    else if (!/^[A-Za-z0-9]{10,12}$/.test(formData['transaction-code'])) newErrors['transaction-code'] = 'Transaction code must be 10-12 alphanumeric characters.';
+    if (!formData.categories.length) newErrors.categories = 'At least one category is required.';
+    if (!formData.languages.length) newErrors.languages = 'At least one language is required.';
+    return newErrors;
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setSubmitting(true);
+    setErrors({});
+
+    const form = e.target;
+    const formDataObj = new FormData(form);
+
+    // Convert categories array to multiple form values for Netlify
+    formDataObj.delete('categories');
+    formData.categories.forEach(category => {
+      formDataObj.append('categories', category);
+    });
+
+    // Convert languages array to multiple form values for Netlify
+    formDataObj.delete('languages');
+    formData.languages.forEach(language => {
+      formDataObj.append('languages', language);
+    });
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formDataObj).toString(),
+    })
+      .then(() => {
+        setSuccess(true);
+        setFormData(initialState);
+      })
+      .catch((error) => {
+        console.error('Form submission error:', error);
+        setErrors({ submit: 'Submission failed. Please try again.' });
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
+  if (success) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+        <svg width="80" height="80" viewBox="0 0 80 80" className="mb-4">
+          <circle cx="40" cy="40" r="38" fill="#fff" stroke="#66D9A8" strokeWidth="4" />
+          <polyline points="24,44 36,56 56,32" fill="none" stroke="#66D9A8" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+            <animate attributeName="points" dur="0.5s" values="24,44 36,56 36,56;24,44 36,56 56,32" fill="freeze" />
+          </polyline>
+        </svg>
+        <div className="text-2xl font-bold text-green-400 mb-2">Registration Successful!</div>
+        <div className="text-lg text-amber-700">Thank you for registering for Mombasa Edition 2026. We will contact you soon.</div>
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-green-800 p-8 rounded-lg shadow-lg text-amber-700 mt-8 mb-8">
-      <h2 className="text-2xl font-bold mb-4 text-[#FF4500]">Multilingual Festival Registration (Mombasa Edition)</h2>
+    <form
+      name="festival-registration-2026"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className="max-w-xl mx-auto bg-green-800 p-8 rounded-lg shadow-lg text-amber-700 mt-8 mb-8"
+    >
+      <input type="hidden" name="form-name" value="festival-registration-2026" />
+      <input type="hidden" name="festival-edition" value="Mombasa Edition 2026" />
+      <p style={{ display: 'none' }}>
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+
+      <h2 className="text-2xl font-bold mb-4 text-[#FF4500]">Multilingual Festival Registration - Mombasa Edition 2026</h2>
       <p className="mb-4 text-gray-200">
-        Pay <span className="font-bold">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.<br/>
+        Pay <span className="font-bold">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.<br />
         Each pupil pays <span className="font-bold">Ksh 500</span> entry fee on event day using the same Pay-Bill. <span className="font-bold">No cash accepted.</span>
       </p>
-      {success && (
-        <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
-          <svg width="80" height="80" viewBox="0 0 80 80" className="mb-4">
-            <circle cx="40" cy="40" r="38" fill="#fff" stroke="#66D9A8" strokeWidth="4" />
-            <polyline points="24,44 36,56 56,32" fill="none" stroke="#66D9A8" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
-              <animate attributeName="points" dur="0.5s" values="24,44 36,56 36,56;24,44 36,56 56,32" fill="freeze" />
-            </polyline>
-          </svg>
-          <div className="text-2xl font-bold text-green-400 mb-2">Registration Successful!</div>
-          <div className="text-lg text-amber-700">Thank you for registering. We will contact you soon.</div>
-        </div>
-      )}
-      {serverError && <div className="mb-4 text-red-600">{serverError}</div>}
+
+      {errors.submit && <div className="mb-4 text-red-600">{errors.submit}</div>}
+
       <div className="mb-4">
-        <label htmlFor="schoolName" className="block font-semibold mb-1">School Name</label>
+        <label htmlFor="school-name" className="block font-semibold mb-1">School Name *</label>
         <input
-          id="schoolName"
-          name="schoolName"
+          id="school-name"
+          name="school-name"
           type="text"
+          required
           className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.schoolName}
+          value={formData['school-name']}
           onChange={handleChange}
-          aria-invalid={!!errors.schoolName}
-          aria-describedby="schoolName-error"
         />
-        {errors.schoolName && <div id="schoolName-error" className="text-red-600 text-sm mt-1">{errors.schoolName}</div>}
+        {errors['school-name'] && <div className="text-red-600 text-sm mt-1">{errors['school-name']}</div>}
       </div>
+
       <div className="mb-4">
-        <label htmlFor="contactPerson" className="block font-semibold mb-1">Contact Person</label>
+        <label htmlFor="contact-person" className="block font-semibold mb-1">Contact Person *</label>
         <input
-          id="contactPerson"
-          name="contactPerson"
+          id="contact-person"
+          name="contact-person"
           type="text"
+          required
           className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.contactPerson}
+          value={formData['contact-person']}
           onChange={handleChange}
-          aria-invalid={!!errors.contactPerson}
-          aria-describedby="contactPerson-error"
         />
-        {errors.contactPerson && <div id="contactPerson-error" className="text-red-600 text-sm mt-1">{errors.contactPerson}</div>}
+        {errors['contact-person'] && <div className="text-red-600 text-sm mt-1">{errors['contact-person']}</div>}
       </div>
+
       <div className="mb-4">
-        <label htmlFor="email" className="block font-semibold mb-1">Email</label>
+        <label htmlFor="email" className="block font-semibold mb-1">Email *</label>
         <input
           id="email"
           name="email"
           type="email"
+          required
           className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.email}
+          value={formData.email}
           onChange={handleChange}
-          aria-invalid={!!errors.email}
-          aria-describedby="email-error"
         />
-        {errors.email && <div id="email-error" className="text-red-600 text-sm mt-1">{errors.email}</div>}
+        {errors.email && <div className="text-red-600 text-sm mt-1">{errors.email}</div>}
       </div>
+
       <div className="mb-4">
-        <label htmlFor="phone" className="block font-semibold mb-1">Phone Number</label>
+        <label htmlFor="phone" className="block font-semibold mb-1">Phone Number *</label>
         <input
           id="phone"
           name="phone"
-          type="text"
+          type="tel"
+          pattern="\+254\d{9}"
           placeholder="+254xxxxxxxxx"
+          required
           className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.phone}
+          value={formData.phone}
           onChange={handleChange}
-          aria-invalid={!!errors.phone}
-          aria-describedby="phone-error"
         />
-        {errors.phone && <div id="phone-error" className="text-red-600 text-sm mt-1">{errors.phone}</div>}
+        {errors.phone && <div className="text-red-600 text-sm mt-1">{errors.phone}</div>}
       </div>
+
       <div className="mb-4">
-        <label htmlFor="transactionCode" className="block font-semibold mb-1">M-Pesa Transaction Code</label>
+        <label htmlFor="transaction-code" className="block font-semibold mb-1">M-Pesa Transaction Code *</label>
         <input
-          id="transactionCode"
-          name="transactionCode"
+          id="transaction-code"
+          name="transaction-code"
           type="text"
+          pattern="[A-Za-z0-9]{10,12}"
+          required
           className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
-          value={values.transactionCode}
+          value={formData['transaction-code']}
           onChange={handleChange}
-          aria-invalid={!!errors.transactionCode}
-          aria-describedby="transactionCode-error"
         />
-        {errors.transactionCode && <div id="transactionCode-error" className="text-red-600 text-sm mt-1">{errors.transactionCode}</div>}
+        {errors['transaction-code'] && <div className="text-red-600 text-sm mt-1">{errors['transaction-code']}</div>}
       </div>
+
       <div className="mb-4">
-        <span className="block font-semibold mb-1">Category/Item (Select all that apply)</span>
+        <span className="block font-semibold mb-1">Languages * (Select all that apply)</span>
+        <div className="max-h-48 overflow-y-auto border border-gray-300 rounded p-3 bg-white">
+          {languages.map(lang => (
+            <label key={lang} className="flex items-center mb-2 hover:bg-gray-50 p-1 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                name="languages"
+                value={lang}
+                checked={formData.languages.includes(lang)}
+                onChange={handleChange}
+                className="mr-3 w-4 h-4 text-[#FF4500] bg-gray-100 border-gray-300 rounded focus:ring-[#FF4500] focus:ring-2"
+              />
+              <span className="text-gray-800 text-sm">{lang}</span>
+            </label>
+          ))}
+        </div>
+        {errors.languages && <div className="text-red-600 text-sm mt-1">{errors.languages}</div>}
+      </div>
+
+      <div className="mb-4">
+        <span className="block font-semibold mb-1">Performance Categories * (Select all that apply)</span>
         <div className="max-h-48 overflow-y-auto border border-gray-300 rounded p-3 bg-white">
           {categories.map(cat => (
             <label key={cat} className="flex items-center mb-2 hover:bg-gray-50 p-1 rounded cursor-pointer">
               <input
                 type="checkbox"
-                id={`category-${cat}`}
                 name="categories"
                 value={cat}
-                checked={values.categories.includes(cat)}
+                checked={formData.categories.includes(cat)}
                 onChange={handleChange}
                 className="mr-3 w-4 h-4 text-[#FF4500] bg-gray-100 border-gray-300 rounded focus:ring-[#FF4500] focus:ring-2"
               />
@@ -212,4 +284,4 @@ const FestivalRegistrationForm = () => {
   );
 };
 
-export default FestivalRegistrationForm; 
+export default FestivalRegistrationForm;
