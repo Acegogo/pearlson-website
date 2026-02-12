@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Badge from '../components/Badge';
+import PageBackground from '../components/PageBackground';
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -369,10 +370,10 @@ const BlogPost = () => {
       .split('\n')
       .map((paragraph, index) => {
         if (paragraph.trim() === '') return null;
-        
+
         if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
           return (
-            <motion.h3 
+            <motion.h3
               key={index}
               className="text-xl font-bold text-pearlson-navy mt-6 mb-3"
               initial={{ opacity: 0, x: -20 }}
@@ -384,10 +385,10 @@ const BlogPost = () => {
             </motion.h3>
           );
         }
-        
+
         if (paragraph.startsWith('        **')) {
           return (
-            <motion.h4 
+            <motion.h4
               key={index}
               className="text-lg font-semibold text-pearlson-navy mt-4 mb-2"
               initial={{ opacity: 0, x: -20 }}
@@ -399,10 +400,10 @@ const BlogPost = () => {
             </motion.h4>
           );
         }
-        
+
         if (paragraph.startsWith('        ')) {
           return (
-            <motion.p 
+            <motion.p
               key={index}
               className="text-gray-600 mb-4 ml-4"
               initial={{ opacity: 0, y: 20 }}
@@ -414,10 +415,10 @@ const BlogPost = () => {
             </motion.p>
           );
         }
-        
+
         if (paragraph.startsWith('- **')) {
           return (
-            <motion.li 
+            <motion.li
               key={index}
               className="text-gray-600 mb-2 ml-4"
               initial={{ opacity: 0, x: -20 }}
@@ -429,10 +430,10 @@ const BlogPost = () => {
             </motion.li>
           );
         }
-        
+
         if (paragraph.startsWith('- ')) {
           return (
-            <motion.li 
+            <motion.li
               key={index}
               className="text-gray-600 mb-2 ml-4"
               initial={{ opacity: 0, x: -20 }}
@@ -444,10 +445,10 @@ const BlogPost = () => {
             </motion.li>
           );
         }
-        
+
         if (paragraph.startsWith('        - **')) {
           return (
-            <motion.li 
+            <motion.li
               key={index}
               className="text-gray-600 mb-2 ml-8"
               initial={{ opacity: 0, x: -20 }}
@@ -459,9 +460,9 @@ const BlogPost = () => {
             </motion.li>
           );
         }
-        
+
         return (
-          <motion.p 
+          <motion.p
             key={index}
             className="text-gray-600 mb-4 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
@@ -477,7 +478,7 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="bg-cream min-h-screen">
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (185).jpg">
       <motion.div
         className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
@@ -530,7 +531,7 @@ const BlogPost = () => {
           </motion.div>
         </div>
       </motion.div>
-    </div>
+    </PageBackground>
   );
 };
 

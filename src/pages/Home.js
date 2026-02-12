@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Card from '../components/Card';
+import PageBackground from '../components/PageBackground';
 
 function useCountUp(target, inView, duration = 1.5) {
   const [count, setCount] = useState(0);
@@ -39,7 +40,7 @@ function StatsSection() {
   const students = useCountUp(7000, inView);
   const years = useCountUp(3, inView);
   return (
-    <section ref={setRef} className="bg-olive py-20">
+    <section ref={setRef} className="bg-olive/90 py-20 backdrop-blur-sm">
       <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
         <div>
           <div className="flex justify-center mb-4">
@@ -101,11 +102,11 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-cream">
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (286).jpg">
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         id="hero"
-        className="relative bg-teal overflow-hidden"
+        className="relative bg-teal/90 overflow-hidden backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -160,16 +161,16 @@ const Home = () => {
       <StatsSection id="stats" />
 
       {/* Features Section */}
-      <motion.div 
+      <motion.div
         id="features"
-        className="section-padding bg-olive"
+        className="section-padding bg-olive/90 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
         <div className="container-custom">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-12 text-cream"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +179,7 @@ const Home = () => {
           >
             Why Choose Pearlson?
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={containerVariants}
             initial="hidden"
@@ -211,16 +212,16 @@ const Home = () => {
       </motion.div>
 
       {/* CTA Section */}
-      <motion.div 
+      <motion.div
         id="cta"
-        className="section-padding bg-orange"
+        className="section-padding bg-orange/90 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
         <div className="container-custom text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-black mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -229,7 +230,7 @@ const Home = () => {
           >
             Ready to Start Your Language Journey?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-black mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -254,7 +255,7 @@ const Home = () => {
           </motion.div>
         </div>
       </motion.div>
-    </div>
+    </PageBackground>
   );
 };
 

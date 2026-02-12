@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageBackground from '../components/PageBackground';
 
 const Workbooks = () => {
   useEffect(() => {
@@ -7,12 +8,10 @@ const Workbooks = () => {
   }, []);
 
   return (
-    <div
-      className="relative min-h-screen w-full flex items-center justify-center py-16 bg-fixed bg-center bg-cover"
-      style={{ backgroundImage: "url('/Images/workbooksbackground.png')" }}
+    <PageBackground
+      image="/Images/workbooksbackground.png"
+      className="flex items-center justify-center py-16"
     >
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black/30" />
 
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto bg-cream/95 backdrop-blur-sm rounded-2xl shadow-xl p-8 md:p-12 border border-orange">
@@ -27,7 +26,7 @@ const Workbooks = () => {
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold text-black mb-4">Interactive Workbooks</h1>
             <p className="text-gray-700 mb-6 max-w-2xl">
-              We are crafting engaging, interactive French and German workbooks tailored for schools. 
+              We are crafting engaging, interactive French and German workbooks tailored for schools.
               Track progress, assign activities, and make language learning fun.
             </p>
             <div className="inline-flex items-center gap-2 text-[#FF4500] font-semibold bg-[#FF4500]/10 px-4 py-2 rounded-full">
@@ -62,7 +61,7 @@ const Workbooks = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

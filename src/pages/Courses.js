@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
 import { Link } from 'react-router-dom';
+import PageBackground from '../components/PageBackground';
 
 const Courses = () => {
   const courses = {
@@ -48,15 +49,10 @@ const Courses = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full" style={{
-      backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (185).jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}>
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (185).jpg">
       <div className="relative z-10">
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           className="relative bg-teal bg-opacity-70 py-20 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -80,7 +76,7 @@ const Courses = () => {
         </motion.div>
 
         {/* Course Cards */}
-        <motion.div 
+        <motion.div
           className="section-padding"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -88,7 +84,7 @@ const Courses = () => {
           viewport={{ once: true }}
         >
           <div className="container-custom">
-            <motion.div 
+            <motion.div
               className="grid grid-cols-1 md:grid-cols-2 gap-8"
               variants={containerVariants}
               initial="hidden"
@@ -176,7 +172,7 @@ const Courses = () => {
         </motion.div>
 
         {/* Testimonials */}
-        <motion.div 
+        <motion.div
           className="bg-olive section-padding"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -184,7 +180,7 @@ const Courses = () => {
           viewport={{ once: true }}
         >
           <div className="container-custom">
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold text-center mb-12 text-cream"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -193,7 +189,7 @@ const Courses = () => {
             >
               Student Success Stories
             </motion.h2>
-            <motion.div 
+            <motion.div
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
               variants={containerVariants}
               initial="hidden"
@@ -234,7 +230,7 @@ const Courses = () => {
           </div>
         </motion.div>
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

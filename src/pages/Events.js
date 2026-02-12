@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../components/Card';
-import { Link } from 'react-router-dom'; // Added Link import
+import { Link } from 'react-router-dom';
+import PageBackground from '../components/PageBackground';
 
 const NAIROBI_IMAGES = [
   '1 (2).jpg', '1 (15).jpg', '1 (21).jpg', '1 (23).jpg', '1 (29).jpg', '1 (32).jpg', '1 (37).jpg', '1 (41).jpg', '1 (45).jpg', '1 (55).jpg',
@@ -14,11 +15,11 @@ const NAIROBI_IMAGES = [
 function calculateCountdown(targetDate) {
   const now = new Date().getTime();
   const distance = targetDate.getTime() - now;
-  
+
   if (distance < 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
-  
+
   return {
     days: Math.floor(distance / (1000 * 60 * 60 * 24)),
     hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -235,14 +236,9 @@ const Events = () => {
   };
 
   return (
-    <div
-      className="relative min-h-screen"
-      style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (253).jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
-      <div className="absolute inset-0 bg-black/10" />
-
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (253).jpg">
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         className="relative py-20 bg-center bg-cover"
         style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (286).jpg')" }}
         initial={{ opacity: 0 }}
@@ -268,7 +264,7 @@ const Events = () => {
       </motion.div>
 
       {/* Tabs */}
-      <motion.div 
+      <motion.div
         className="section-padding relative z-10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -276,7 +272,7 @@ const Events = () => {
         viewport={{ once: true }}
       >
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="flex justify-center mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -285,21 +281,19 @@ const Events = () => {
           >
             <div className="inline-flex rounded-lg border border-orange p-1 bg-cream/90 backdrop-blur-sm glass-card">
               <button
-                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-300 ${
-                  activeTab === 'upcoming'
-                    ? 'bg-orange text-black shadow-lg'
-                    : 'text-olive hover:bg-orange hover:text-black'
-                } hover:scale-105`}
+                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-300 ${activeTab === 'upcoming'
+                  ? 'bg-orange text-black shadow-lg'
+                  : 'text-olive hover:bg-orange hover:text-black'
+                  } hover:scale-105`}
                 onClick={() => setActiveTab('upcoming')}
               >
                 Upcoming Events
               </button>
               <button
-                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-300 ${
-                  activeTab === 'past'
-                    ? 'bg-orange text-black shadow-lg'
-                    : 'text-olive hover:bg-orange hover:text-black'
-                } hover:scale-105`}
+                className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-300 ${activeTab === 'past'
+                  ? 'bg-orange text-black shadow-lg'
+                  : 'text-olive hover:bg-orange hover:text-black'
+                  } hover:scale-105`}
                 onClick={() => setActiveTab('past')}
               >
                 Past Events
@@ -456,7 +450,7 @@ const Events = () => {
           )}
         </div>
       </motion.div>
-    </div>
+    </PageBackground>
   );
 };
 

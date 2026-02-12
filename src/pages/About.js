@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Card from '../components/Card';
+import PageBackground from '../components/PageBackground';
 
 const About = () => {
   const containerVariants = {
@@ -26,9 +27,9 @@ const About = () => {
   };
 
   return (
-    <div className="bg-cream">
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (185).jpg">
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -52,7 +53,7 @@ const About = () => {
       </motion.div>
 
       {/* Founder Section */}
-      <motion.div 
+      <motion.div
         className="section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -104,7 +105,7 @@ const About = () => {
       </motion.div>
 
       {/* Mission & Vision */}
-      <motion.div 
+      <motion.div
         className="bg-olive section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -112,7 +113,7 @@ const About = () => {
         viewport={{ once: true }}
       >
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-12"
             variants={containerVariants}
             initial="hidden"
@@ -143,7 +144,7 @@ const About = () => {
       </motion.div>
 
       {/* Image Gallery */}
-      <motion.div 
+      <motion.div
         className="section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -151,7 +152,7 @@ const About = () => {
         viewport={{ once: true }}
       >
         <div className="container-custom">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-12 text-black"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +161,7 @@ const About = () => {
           >
             Our Journey in Pictures
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-4"
             variants={containerVariants}
             initial="hidden"
@@ -195,7 +196,7 @@ const About = () => {
           </motion.div>
         </div>
       </motion.div>
-    </div>
+    </PageBackground>
   );
 };
 

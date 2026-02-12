@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from '../components/Card';
+import PageBackground from '../components/PageBackground';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -56,9 +57,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-cream">
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (185).jpg">
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         className="relative bg-teal py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -82,7 +83,7 @@ const Contact = () => {
       </motion.div>
 
       {/* Contact Section */}
-      <motion.div 
+      <motion.div
         className="section-padding"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -90,7 +91,7 @@ const Contact = () => {
         viewport={{ once: true }}
       >
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-12"
             variants={containerVariants}
             initial="hidden"
@@ -186,7 +187,7 @@ const Contact = () => {
               variants={itemVariants}
               className="space-y-8"
             >
-              <motion.div 
+              <motion.div
                 className="bg-cream rounded-lg shadow-lg p-8 hover:shadow-2xl transition-shadow duration-300 border border-orange"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -257,7 +258,7 @@ const Contact = () => {
               </motion.div>
 
               {/* Map */}
-              <motion.div 
+              <motion.div
                 className="bg-cream rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-orange"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -330,7 +331,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </motion.div>
-    </div>
+    </PageBackground>
   );
 };
 
