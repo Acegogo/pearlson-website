@@ -15,6 +15,7 @@ const Footer = () => {
     resources: [
       { label: 'Language Learning Tips', path: '/blog' },
       { label: 'Success Stories', path: '/blog' },
+      { label: 'Champions League 2026', path: '/champions-league-register' },
       { label: 'FAQs', path: '/contact' },
       { label: 'Privacy Policy', path: '/privacy' },
       { label: 'Terms of Service', path: '/terms' },

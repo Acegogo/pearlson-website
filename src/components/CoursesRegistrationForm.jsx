@@ -89,10 +89,10 @@ const CoursesRegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-green-800 p-8 rounded-lg shadow-lg text-amber-700 mt-8 mb-8">
-      <h2 className="text-2xl font-bold mb-4 text-[#FF4500]">Courses Registration</h2>
-      <p className="mb-4 text-gray-200">
-        Contact <a href="mailto:info@pearlsonlanguages.com" className="underline text-[#FF4500]">info@pearlsonlanguages.com</a> for payment details after submission.<br/>
+    <form onSubmit={handleSubmit} className="w-full">
+      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-olive text-center">Courses Registration</h2>
+      <p className="mb-6 text-olive/80 text-sm md:text-base text-center">
+        Contact <a href="mailto:info@pearlsonlanguages.com" className="text-orange hover:underline font-medium">info@pearlsonlanguages.com</a> for payment details after submission.<br/>
         <span className="font-bold">Pricing:</span> Ksh 1,000 (150–350 learners), Ksh 800 (351–650 learners), Ksh 600 (&gt;650 learners).
       </p>
       {success ? (
@@ -103,20 +103,20 @@ const CoursesRegistrationForm = () => {
               <animate attributeName="points" dur="0.5s" values="24,44 36,56 36,56;24,44 36,56 56,32" fill="freeze" />
             </polyline>
           </svg>
-          <div className="text-2xl font-bold text-green-400 mb-2">Registration Successful!</div>
-          <div className="text-lg text-amber-700">Thank you for registering. We will contact you soon.</div>
+          <div className="text-2xl font-bold text-teal mb-2">Registration Successful!</div>
+          <div className="text-lg text-olive">Thank you for registering. We will contact you soon.</div>
         </div>
       ) : (
         <>
           {success && <div className="mb-4 text-green-400">Registration successful! We will contact you soon.</div>}
           {serverError && <div className="mb-4 text-red-600">{serverError}</div>}
           <div className="mb-4">
-            <label htmlFor="schoolName" className="block font-semibold mb-1">School Name</label>
+            <label htmlFor="schoolName" className="form-label">School Name</label>
             <input
               id="schoolName"
               name="schoolName"
               type="text"
-              className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
+              className="form-input"
               value={values.schoolName}
               onChange={handleChange}
               aria-invalid={!!errors.schoolName}
@@ -125,12 +125,12 @@ const CoursesRegistrationForm = () => {
             {errors.schoolName && <div id="schoolName-error" className="text-red-600 text-sm mt-1">{errors.schoolName}</div>}
           </div>
           <div className="mb-4">
-            <label htmlFor="contactPerson" className="block font-semibold mb-1">Contact Person</label>
+            <label htmlFor="contactPerson" className="form-label">Contact Person</label>
             <input
               id="contactPerson"
               name="contactPerson"
               type="text"
-              className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
+              className="form-input"
               value={values.contactPerson}
               onChange={handleChange}
               aria-invalid={!!errors.contactPerson}
@@ -139,12 +139,12 @@ const CoursesRegistrationForm = () => {
             {errors.contactPerson && <div id="contactPerson-error" className="text-red-600 text-sm mt-1">{errors.contactPerson}</div>}
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block font-semibold mb-1">Email</label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               id="email"
               name="email"
               type="email"
-              className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
+              className="form-input"
               value={values.email}
               onChange={handleChange}
               aria-invalid={!!errors.email}
@@ -153,13 +153,13 @@ const CoursesRegistrationForm = () => {
             {errors.email && <div id="email-error" className="text-red-600 text-sm mt-1">{errors.email}</div>}
           </div>
           <div className="mb-4">
-            <label htmlFor="phone" className="block font-semibold mb-1">Phone Number</label>
+            <label htmlFor="phone" className="form-label">Phone Number</label>
             <input
               id="phone"
               name="phone"
               type="text"
               placeholder="+254xxxxxxxxx"
-              className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
+              className="form-input"
               value={values.phone}
               onChange={handleChange}
               aria-invalid={!!errors.phone}
@@ -168,13 +168,13 @@ const CoursesRegistrationForm = () => {
             {errors.phone && <div id="phone-error" className="text-red-600 text-sm mt-1">{errors.phone}</div>}
           </div>
           <div className="mb-4">
-            <label htmlFor="numLearners" className="block font-semibold mb-1">Number of Learners</label>
+            <label htmlFor="numLearners" className="form-label">Number of Learners</label>
             <input
               id="numLearners"
               name="numLearners"
               type="number"
               min="1"
-              className="w-full p-2 rounded border focus:ring-2 focus:ring-[#FF4500] text-black"
+              className="form-input"
               value={values.numLearners}
               onChange={handleChange}
               aria-invalid={!!errors.numLearners}
@@ -183,7 +183,7 @@ const CoursesRegistrationForm = () => {
             {errors.numLearners && <div id="numLearners-error" className="text-red-600 text-sm mt-1">{errors.numLearners}</div>}
           </div>
           <div className="mb-4">
-            <span className="block font-semibold mb-1">Preferred Language(s)</span>
+            <span className="form-label">Preferred Language(s)</span>
             <div className="flex flex-wrap gap-4">
               {languageOptions.map(opt => (
                 <label key={opt.value} className="flex items-center gap-2">
@@ -203,7 +203,7 @@ const CoursesRegistrationForm = () => {
             {errors.languages && <div className="text-red-600 text-sm mt-1">{errors.languages}</div>}
           </div>
           <div className="mb-4">
-            <span className="block font-semibold mb-1">Optional Services</span>
+            <span className="form-label">Optional Services</span>
             <div className="flex flex-wrap gap-4">
               {serviceOptions.map(opt => (
                 <label key={opt.value} className="flex items-center gap-2">
@@ -222,7 +222,7 @@ const CoursesRegistrationForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded bg-[#FF4500] hover:bg-[#cc3700] text-white font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:ring-offset-2 disabled:opacity-60"
+            className="w-full py-3.5 px-6 rounded-xl bg-orange hover:bg-orange/90 text-cream font-bold transition-all duration-300 shadow-glow-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2 disabled:opacity-60"
             disabled={submitting}
           >
             {submitting ? 'Submitting...' : 'Register'}

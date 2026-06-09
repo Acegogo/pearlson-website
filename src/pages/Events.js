@@ -102,56 +102,18 @@ function CoastSlideshow() {
 
 const EVENTS = [
   {
-    id: 'riftvalley-2026',
-    name: 'Multilingual Festival - Rift Valley Edition 2026',
-    date: new Date('2026-03-07T08:00:00+03:00'),
-    location: 'Rift Valley Region, Kenya',
-    description: 'Expanding horizons across the entire Rift Valley region',
+    id: 'champions-league-2026',
+    name: 'National Champions League Edition 2026',
+    date: new Date('2026-08-01T08:00:00+03:00'),
+    location: 'Nationwide, Kenya',
+    description: 'The grand national finale in partnership with KPSA — private schools across Kenya unite',
     tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
     theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
     categories: 'Kindergarten to Junior School competitions',
     prizes: 'Trophies, medals, and school grants for winners!',
-    registerRoute: '/festival-register/riftvalley-2026',
-    poster: '/Images/poster_1_rift_valley_v2.png',
-  },
-  {
-    id: 'coast-2026',
-    name: 'Multilingual Festival - Coast Edition 2026',
-    date: new Date('2026-03-14T08:00:00+03:00'),
-    location: 'Coast Region, Kenya',
-    description: 'Celebrating coastal diversity and cultural fusion',
-    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
-    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
-    categories: 'Kindergarten to Junior School competitions',
-    prizes: 'Trophies, medals, and school grants for winners!',
-    registerRoute: '/festival-register/coast-2026',
-    poster: '/Images/poster_2_coast_v2.png',
-  },
-  {
-    id: 'western-2026',
-    name: 'Multilingual Festival - Western Edition 2026',
-    date: new Date('2026-03-21T08:00:00+03:00'),
-    location: 'Western Region, Kenya',
-    description: 'Grand finale celebration of our national tour',
-    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
-    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
-    categories: 'Kindergarten to Junior School competitions',
-    prizes: 'Trophies, medals, and school grants for winners!',
-    registerRoute: '/festival-register/western-2026',
-    poster: '/Images/poster_3_western_v2.png',
-  },
-  {
-    id: 'nairobi-2026',
-    name: 'Multilingual Festival - Nairobi Edition 2026',
-    date: new Date('2026-03-28T08:00:00+03:00'),
-    location: 'Nairobi, Kenya',
-    description: 'Kickstarting our national tour in the capital city',
-    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
-    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
-    categories: 'Kindergarten to Junior School competitions',
-    prizes: 'Trophies, medals, and school grants for winners!',
-    registerRoute: '/festival-register/nairobi-2026',
+    registerRoute: '/champions-league-register',
     poster: '/Images/poster_4_nairobi_v2.png',
+    partnership: true,
   },
 ];
 
@@ -239,24 +201,24 @@ const Events = () => {
     <PageBackground image="/Images/Past Events/Nairobi Edition/1 (253).jpg">
       {/* Hero Section */}
       <motion.div
-        className="relative py-20 bg-center bg-cover"
+        className="relative py-16 md:py-24 bg-center bg-cover"
         style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (286).jpg')" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/40" />
         <div className="container-custom relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center glass-panel rounded-xl p-6 inline-block mx-auto"
+            className="text-center glass-panel rounded-2xl p-8 md:p-10 max-w-3xl mx-auto shadow-glow-teal"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-cream mb-6">
+            <h1 className="text-3xl md:text-5xl font-bold text-cream mb-4">
               Events & Celebrations
             </h1>
-            <p className="text-xl text-orange max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-cream/90 max-w-2xl mx-auto">
               Join us in celebrating languages and cultural diversity through exciting events
             </p>
           </motion.div>
@@ -304,65 +266,68 @@ const Events = () => {
           {/* Upcoming Events */}
           {activeTab === 'upcoming' && (
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              className="max-w-3xl mx-auto"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
               {EVENTS.map((event, idx) => (
-                <motion.div key={event.name} variants={itemVariants} whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}>
-                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange flex flex-col h-full glass-card">
-                    {/* Heading Section */}
-                    <div className="p-6 pb-0">
-                      <div className="font-bold text-2xl md:text-3xl mb-2 text-black text-center">{event.name}</div>
+                <motion.div key={event.name} variants={itemVariants}>
+                  <Card glow className="overflow-hidden bg-cream/95 flex flex-col h-full">
+                    <div className="p-6 md:p-8 pb-0">
+                      {event.partnership && (
+                        <div className="flex items-center justify-center gap-4 mb-6">
+                          <img src="/Images/PLS_logo.png" alt="Pearlson Languages" className="h-12 bg-white rounded-xl p-1 shadow-md" />
+                          <span className="text-orange text-xl font-light">&times;</span>
+                          <img src="/Images/kpsa-logo.png" alt="Kenya Private Schools Association" className="h-14 w-14 object-contain bg-white rounded-xl p-1 shadow-md" />
+                        </div>
+                      )}
+                      <div className="font-bold text-2xl md:text-3xl mb-2 text-olive text-center">{event.name}</div>
                       <div className="italic text-orange text-base md:text-lg text-center mb-2">{event.description}</div>
                       <div className="text-orange font-semibold mb-2 text-center">{event.tagline}</div>
+                      {event.partnership && (
+                        <p className="partnership-badge mx-auto mb-4 w-fit">
+                          In partnership with Kenya Private Schools Association (KPSA)
+                        </p>
+                      )}
                     </div>
-                    {/* Poster Image */}
                     {event.poster && (
-                      <div className="w-full px-6 mb-4">
+                      <div className="w-full px-6 md:px-8 mb-4">
                         <img
                           src={event.poster}
                           alt={`${event.name} poster`}
-                          className="w-full h-auto rounded-lg border border-orange shadow-md object-contain"
+                          className="w-full h-auto rounded-xl border border-orange/20 shadow-glow-card object-contain"
                         />
                       </div>
                     )}
-                    {/* Body Section */}
-                    <div className="flex-1 flex flex-col justify-between px-6 pb-6">
+                    <div className="flex-1 flex flex-col justify-between px-6 md:px-8 pb-8">
                       <div>
-                        <div className="flex flex-col items-center mb-4">
-                          <div className="text-lg font-bold text-black mb-2">{event.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                          <div className="text-olive mb-3">{event.location}</div>
-                          <div className="flex flex-col items-center gap-2 text-olive mt-2">
+                        <div className="flex flex-col items-center mb-6">
+                          <div className="text-lg font-bold text-olive mb-2">
+                            {event.date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                          </div>
+                          <div className="text-olive/80 mb-4">{event.location}</div>
+                          <div className="flex flex-col items-center gap-2 text-olive">
                             <span className="font-semibold text-lg">Countdown:</span>
-                            <div className="font-mono text-xl md:text-2xl bg-orange/10 px-4 py-2 rounded-lg shadow text-orange border border-orange animate-pulse text-center">
-                              <div className="flex gap-2 items-center justify-center flex-wrap">
-                                <span className="font-bold">{countdowns[idx].days}</span> <span className="text-sm">days</span>
-                                <span className="font-bold">{countdowns[idx].hours}</span> <span className="text-sm">hours</span>
-                                <span className="font-bold">{countdowns[idx].minutes}</span> <span className="text-sm">min</span>
-                                <span className="font-bold">{countdowns[idx].seconds}</span> <span className="text-sm">sec</span>
+                            <div className="font-mono text-xl md:text-2xl bg-orange/10 px-6 py-3 rounded-xl shadow-glow-orange text-orange border border-orange/30 text-center">
+                              <div className="flex gap-3 items-center justify-center flex-wrap">
+                                <span><span className="font-bold text-2xl">{countdowns[idx].days}</span> <span className="text-sm">days</span></span>
+                                <span><span className="font-bold text-2xl">{countdowns[idx].hours}</span> <span className="text-sm">hrs</span></span>
+                                <span><span className="font-bold text-2xl">{countdowns[idx].minutes}</span> <span className="text-sm">min</span></span>
+                                <span><span className="font-bold text-2xl">{countdowns[idx].seconds}</span> <span className="text-sm">sec</span></span>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="mb-2 text-center">
-                          <span className="font-bold text-black">Theme:</span> <span className="text-olive">{event.theme}</span>
-                        </div>
-                        <div className="mb-2 text-center">
-                          <span className="font-bold text-black">Categories:</span> <span className="text-olive">{event.categories}</span>
-                        </div>
-                        <div className="mb-2 text-center">
-                          <span className="font-bold text-black">Prizes:</span> <span className="text-olive">{event.prizes}</span>
+                        <div className="space-y-2 text-center mb-6">
+                          <div><span className="font-bold text-olive">Theme:</span> <span className="text-olive/80">{event.theme}</span></div>
+                          <div><span className="font-bold text-olive">Categories:</span> <span className="text-olive/80">{event.categories}</span></div>
+                          <div><span className="font-bold text-olive">Prizes:</span> <span className="text-olive/80">{event.prizes}</span></div>
                         </div>
                       </div>
-                      {/* Footer Section with CTA */}
-                      <div className="flex justify-center mt-4">
-                        <Link
-                          to={event.registerRoute}
-                          className="mt-4 inline-block bg-[#FF4500] hover:bg-[#cc3700] text-white font-bold py-2 px-6 rounded shadow transition-colors focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:ring-offset-2 glass-button"
-                        >
+                      <div className="flex justify-center">
+                        <Link to={event.registerRoute} className="btn-primary px-8 py-3">
                           Register Now
                         </Link>
                       </div>
@@ -389,7 +354,7 @@ const Events = () => {
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,53,0,0.15)' }}
                 >
-                  <Card className="overflow-hidden hover:shadow-2xl transition-shadow duration-300 bg-cream/90 backdrop-blur-sm border border-orange glass-card">
+                  <Card glow className="overflow-hidden bg-cream/95 mb-8">
                     {event.slideshow && event.title === 'Multilingual Festival Nairobi Edition' ? (
                       <NairobiSlideshow />
                     ) : event.slideshow && event.title === '2025 Coast Multilingual Edition' ? (

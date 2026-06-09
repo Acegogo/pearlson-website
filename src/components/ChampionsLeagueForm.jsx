@@ -1,0 +1,358 @@
+import React, { useState } from 'react';
+
+const languages = [
+  'English',
+  'Kiswahili',
+  'French',
+  'German',
+  'Arabic',
+  'Mandarin',
+  'Spanish',
+  'Sign Language',
+  'Indigenous Languages',
+];
+
+const categories = [
+  'Kindergarten: Singing game',
+  'Lower primary (grade 1-3): Song/song and dance/choral poem',
+  'Upper primary (grade 4-6): Choral verse/song and dance/rap',
+  'Junior school (grade 7-9): Skit/play/modern dance',
+  'Grade 10: Skit, song, poem, choral verse',
+  'Form 3 & 4: Skit, song, poem, choral verse',
+  'Solo pieces (any grade): Solo verse/public speaking/solo song',
+];
+
+const counties = [
+  'Baringo', 'Bomet', 'Bungoma', 'Busia', 'Elgeyo-Marakwet', 'Embu', 'Garissa',
+  'Homa Bay', 'Isiolo', 'Kajiado', 'Kakamega', 'Kericho', 'Kiambu', 'Kilifi',
+  'Kirinyaga', 'Kisii', 'Kisumu', 'Kitui', 'Kwale', 'Laikipia', 'Lamu',
+  'Machakos', 'Makueni', 'Mandera', 'Marsabit', 'Meru', 'Migori', 'Mombasa',
+  'Murang\'a', 'Nairobi', 'Nakuru', 'Nandi', 'Narok', 'Nyamira', 'Nyandarua',
+  'Nyeri', 'Samburu', 'Siaya', 'Taita-Taveta', 'Tana River', 'Tharaka-Nithi',
+  'Trans Nzoia', 'Turkana', 'Uasin Gishu', 'Vihiga', 'Wajir', 'West Pokot',
+];
+
+const initialState = {
+  'school-name': '',
+  county: '',
+  'contact-person': '',
+  email: '',
+  phone: '',
+  'transaction-code': '',
+  categories: [],
+  languages: [],
+};
+
+const ChampionsLeagueForm = () => {
+  const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      if (name === 'categories') {
+        setFormData(prev => ({
+          ...prev,
+          categories: checked
+            ? [...prev.categories, value]
+            : prev.categories.filter(c => c !== value)
+        }));
+        setErrors(prev => ({ ...prev, categories: undefined }));
+      } else if (name === 'languages') {
+        setFormData(prev => ({
+          ...prev,
+          languages: checked
+            ? [...prev.languages, value]
+            : prev.languages.filter(l => l !== value)
+        }));
+        setErrors(prev => ({ ...prev, languages: undefined }));
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData['school-name']) newErrors['school-name'] = 'School name is required.';
+    if (!formData.county) newErrors.county = 'County is required.';
+    if (!formData['contact-person']) newErrors['contact-person'] = 'Contact person is required.';
+    if (!formData.email) newErrors.email = 'Email is required.';
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Invalid email address.';
+    if (!formData.phone) newErrors.phone = 'Phone number is required.';
+    else if (!/^\+254\d{9}$/.test(formData.phone)) newErrors.phone = 'Phone must be in +254xxxxxxxxx format.';
+    if (!formData['transaction-code']) newErrors['transaction-code'] = 'M-Pesa transaction code is required.';
+    else if (!/^[A-Za-z0-9]{10,12}$/.test(formData['transaction-code'])) newErrors['transaction-code'] = 'Transaction code must be 10-12 alphanumeric characters.';
+    if (!formData.categories.length) newErrors.categories = 'At least one category is required.';
+    if (!formData.languages.length) newErrors.languages = 'At least one language is required.';
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setSubmitting(true);
+    setErrors({});
+
+    const form = e.target;
+    const formDataObj = new FormData(form);
+
+    formDataObj.delete('categories');
+    formData.categories.forEach(category => {
+      formDataObj.append('categories', category);
+    });
+
+    formDataObj.delete('languages');
+    formData.languages.forEach(language => {
+      formDataObj.append('languages', language);
+    });
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formDataObj).toString(),
+    })
+      .then(() => {
+        setSuccess(true);
+        setFormData(initialState);
+      })
+      .catch((error) => {
+        console.error('Form submission error:', error);
+        setErrors({ submit: 'Submission failed. Please try again.' });
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
+  if (success) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 animate-fade-in text-center px-4">
+        <div className="w-20 h-20 rounded-full bg-teal/20 flex items-center justify-center mb-6 shadow-glow-teal">
+          <svg width="48" height="48" viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="22" fill="none" stroke="#008080" strokeWidth="3" />
+            <polyline points="14,25 21,32 34,18" fill="none" stroke="#008080" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <h3 className="text-2xl font-bold text-teal mb-2">Registration Successful!</h3>
+        <p className="text-olive max-w-md">
+          Thank you for registering for the National Champions League Edition 2026.
+          We will contact you soon with further details.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      name="champions-league-2026"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className="w-full"
+    >
+      <input type="hidden" name="form-name" value="champions-league-2026" />
+      <input type="hidden" name="festival-edition" value="National Champions League Edition 2026" />
+      <p style={{ display: 'none' }}>
+        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      </p>
+
+      <div className="text-center mb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
+          <img
+            src="/Images/PLS_logo.png"
+            alt="Pearlson Languages and Solutions"
+            className="h-16 bg-white rounded-xl p-2 shadow-md"
+          />
+          <span className="text-2xl text-orange font-light hidden sm:block">&times;</span>
+          <img
+            src="/Images/kpsa-logo.png"
+            alt="Kenya Private Schools Association (KPSA) logo"
+            className="h-20 w-20 object-contain bg-white rounded-xl p-1 shadow-md"
+          />
+        </div>
+        <h2 className="text-2xl md:text-3xl font-bold text-olive mb-2">
+          National Champions League Edition 2026
+        </h2>
+        <p className="partnership-badge mx-auto mb-4">
+          In partnership with Kenya Private Schools Association (KPSA)
+        </p>
+        <p className="text-olive/80 text-sm md:text-base max-w-lg mx-auto">
+          Nationwide registration for private schools across Kenya. Event date: <strong>1 August 2026</strong>.
+        </p>
+      </div>
+
+      <div className="bg-orange/5 border border-orange/20 rounded-xl p-4 mb-6 text-olive text-sm md:text-base">
+        Pay <span className="font-bold text-orange">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill{' '}
+        <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.
+        Each pupil pays <span className="font-bold">Ksh 500</span> entry fee on event day using the same Pay-Bill.{' '}
+        <span className="font-bold">No cash accepted.</span>
+      </div>
+
+      {errors.submit && (
+        <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm">{errors.submit}</div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="school-name" className="form-label">School Name *</label>
+          <input
+            id="school-name"
+            name="school-name"
+            type="text"
+            required
+            className="form-input"
+            value={formData['school-name']}
+            onChange={handleChange}
+          />
+          {errors['school-name'] && <div className="text-red-500 text-sm mt-1">{errors['school-name']}</div>}
+        </div>
+
+        <div>
+          <label htmlFor="county" className="form-label">County *</label>
+          <select
+            id="county"
+            name="county"
+            required
+            className="form-input"
+            value={formData.county}
+            onChange={handleChange}
+          >
+            <option value="">Select county</option>
+            {counties.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+          {errors.county && <div className="text-red-500 text-sm mt-1">{errors.county}</div>}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="contact-person" className="form-label">Contact Person *</label>
+          <input
+            id="contact-person"
+            name="contact-person"
+            type="text"
+            required
+            className="form-input"
+            value={formData['contact-person']}
+            onChange={handleChange}
+          />
+          {errors['contact-person'] && <div className="text-red-500 text-sm mt-1">{errors['contact-person']}</div>}
+        </div>
+
+        <div>
+          <label htmlFor="email" className="form-label">Email *</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            className="form-input"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="phone" className="form-label">Phone Number *</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            pattern="\+254\d{9}"
+            placeholder="+254xxxxxxxxx"
+            required
+            className="form-input"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          {errors.phone && <div className="text-red-500 text-sm mt-1">{errors.phone}</div>}
+        </div>
+
+        <div>
+          <label htmlFor="transaction-code" className="form-label">M-Pesa Transaction Code *</label>
+          <input
+            id="transaction-code"
+            name="transaction-code"
+            type="text"
+            pattern="[A-Za-z0-9]{10,12}"
+            required
+            className="form-input"
+            value={formData['transaction-code']}
+            onChange={handleChange}
+          />
+          {errors['transaction-code'] && <div className="text-red-500 text-sm mt-1">{errors['transaction-code']}</div>}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <span className="form-label">Languages * (Select all that apply)</span>
+          <div className="form-checkbox-group">
+            {languages.map(lang => (
+              <label key={lang} className="flex items-center mb-2 hover:bg-orange/5 p-1.5 rounded-lg cursor-pointer transition-colors">
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value={lang}
+                  checked={formData.languages.includes(lang)}
+                  onChange={handleChange}
+                  className="mr-3 w-4 h-4 text-orange rounded focus:ring-orange"
+                />
+                <span className="text-olive text-sm">{lang}</span>
+              </label>
+            ))}
+          </div>
+          {errors.languages && <div className="text-red-500 text-sm mt-1">{errors.languages}</div>}
+        </div>
+
+        <div>
+          <span className="form-label">Performance Categories * (Select all that apply)</span>
+          <div className="form-checkbox-group">
+            {categories.map(cat => (
+              <label key={cat} className="flex items-center mb-2 hover:bg-orange/5 p-1.5 rounded-lg cursor-pointer transition-colors">
+                <input
+                  type="checkbox"
+                  name="categories"
+                  value={cat}
+                  checked={formData.categories.includes(cat)}
+                  onChange={handleChange}
+                  className="mr-3 w-4 h-4 text-orange rounded focus:ring-orange"
+                />
+                <span className="text-olive text-sm">{cat}</span>
+              </label>
+            ))}
+          </div>
+          {errors.categories && <div className="text-red-500 text-sm mt-1">{errors.categories}</div>}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full py-3.5 px-6 rounded-xl bg-orange hover:bg-orange/90 text-cream font-bold
+                   transition-all duration-300 shadow-glow-orange hover:shadow-glow-card-hover
+                   focus:outline-none focus:ring-2 focus:ring-orange focus:ring-offset-2
+                   disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98]"
+      >
+        {submitting ? 'Submitting...' : 'Register for Champions League'}
+      </button>
+    </form>
+  );
+};
+
+export default ChampionsLeagueForm;

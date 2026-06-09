@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function scrollToAnchor(anchor) {
   const el = document.getElementById(anchor);
@@ -25,11 +25,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
-    { 
-      path: '/courses', 
+    {
+      path: '/courses',
       label: 'Courses',
       dropdown: [
         { path: '/courses', label: 'All Courses' },
@@ -37,64 +41,63 @@ const Navbar = () => {
         { path: '/workbooks', label: 'Workbooks (Coming Soon)' }
       ]
     },
-    { 
-      path: '/events', 
+    {
+      path: '/events',
       label: 'Events',
       dropdown: [
         { path: '/events', label: 'All Events' },
-        { path: '/festival-register/nairobi-2026', label: 'Nairobi Edition 2026' },
-        { path: '/festival-register/coast-2026', label: 'Coast Edition 2026' },
-        { path: '/festival-register/riftvalley-2026', label: 'Rift Valley Edition 2026' },
-        { path: '/festival-register/western-2026', label: 'Western Edition 2026' }
+        { path: '/champions-league-register', label: 'Champions League 2026' },
       ]
     },
     { path: '/blog', label: 'Blog' },
     { path: '/contact', label: 'Contact' },
   ];
 
+  const linkClass = (isActive) =>
+    `text-base font-medium transition-all duration-300 ${
+      isActive
+        ? 'text-orange'
+        : isScrolled
+        ? 'text-olive hover:text-orange'
+        : 'text-cream hover:text-orange'
+    }`;
+
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-cream/95 backdrop-blur-xl shadow-lg border-b border-orange/10'
+          : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link to="/" className="flex items-center group">
             <img
               src="/Images/PLS_logo.png"
               alt="Pearlson Languages"
-              className="h-12 bg-white rounded-lg p-1 shadow-md"
-              style={{ background: 'white', borderRadius: '0.5rem', padding: '0.25rem' }}
+              className="h-10 md:h-12 bg-white rounded-xl p-1 shadow-md group-hover:shadow-glow-orange transition-shadow duration-300"
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+            {navLinks.map((link) =>
               link.dropdown ? (
                 <div key={link.path} className="relative group">
                   <button
-                    className={`text-lg font-medium transition-colors duration-300 flex items-center ${
-                      location.pathname.startsWith(link.path)
-                        ? 'text-pearlson-red'
-                        : isScrolled
-                        ? 'text-gray-800 hover:text-pearlson-red'
-                        : 'text-white hover:text-pearlson-red'
-                    }`}
+                    className={`${linkClass(location.pathname.startsWith(link.path))} flex items-center gap-1`}
                   >
                     {link.label}
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <div className="absolute top-full left-0 mt-2 w-52 bg-cream/95 backdrop-blur-xl rounded-xl shadow-glow-card border border-orange/15 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden">
                     {link.dropdown.map((dropdownItem) => (
                       <Link
                         key={dropdownItem.path}
                         to={dropdownItem.path}
-                        className="block px-4 py-2 text-gray-800 hover:bg-[#FF4500] hover:text-white transition-colors duration-200"
+                        className="block px-4 py-2.5 text-olive hover:bg-orange hover:text-cream transition-colors duration-200 text-sm"
                       >
                         {dropdownItem.label}
                       </Link>
@@ -105,13 +108,7 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={`#${link.anchor}`}
-                  className={`text-lg font-medium transition-colors duration-300 ${
-                    location.hash === `#${link.anchor}`
-                      ? 'text-pearlson-red'
-                      : isScrolled
-                      ? 'text-gray-800 hover:text-pearlson-red'
-                      : 'text-white hover:text-pearlson-red'
-                  }`}
+                  className={linkClass(location.hash === `#${link.anchor}`)}
                   onClick={e => {
                     e.preventDefault();
                     scrollToAnchor(link.anchor);
@@ -123,133 +120,114 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-lg font-medium transition-colors duration-300 ${
-                    location.pathname === link.path
-                      ? 'text-pearlson-red'
-                      : isScrolled
-                      ? 'text-gray-800 hover:text-pearlson-red'
-                      : 'text-white hover:text-pearlson-red'
-                  }`}
+                  className={linkClass(location.pathname === link.path)}
                 >
                   {link.label}
                 </Link>
               )
-            ))}
-            <Link
-              to="/contact"
-              className="btn-primary"
-            >
-              Get Started
+            )}
+            <Link to="/champions-league-register" className="btn-primary text-sm">
+              Register Now
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            className={`md:hidden focus:outline-none ${
-              isScrolled ? 'text-gray-800' : 'text-white'
+            className={`md:hidden focus:outline-none p-2 rounded-lg transition-colors ${
+              isScrolled ? 'text-olive hover:bg-orange/10' : 'text-cream hover:bg-white/10'
             }`}
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-white shadow-lg rounded-lg mt-2 py-4"
-          >
-            <div className="flex flex-col space-y-4 px-4">
-              {navLinks.map((link) => (
-                <div key={link.path}>
-                  {link.dropdown ? (
-                    <div>
-                      <button
-                        onClick={() => {
-                          if (link.label === 'Events') {
-                            setEventsDropdownOpen(!eventsDropdownOpen);
-                          } else if (link.label === 'Courses') {
-                            setCoursesDropdownOpen(!coursesDropdownOpen);
-                          }
-                        }}
-                        className={`text-lg font-medium transition-colors duration-300 flex items-center justify-between w-full ${
-                          location.pathname.startsWith(link.path)
-                            ? 'text-pearlson-red'
-                            : 'text-gray-800 hover:text-pearlson-red'
-                        }`}
-                      >
-                        {link.label}
-                        <svg className={`w-4 h-4 transition-transform ${link.label === 'Events' ? (eventsDropdownOpen ? 'rotate-180' : '') : (coursesDropdownOpen ? 'rotate-180' : '')}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                      {(link.label === 'Events' ? eventsDropdownOpen : coursesDropdownOpen) && (
-                        <div className="ml-4 mt-2 space-y-2">
-                          {link.dropdown.map((dropdownItem) => (
-                            <Link
-                              key={dropdownItem.path}
-                              to={dropdownItem.path}
-                              className="block text-gray-600 hover:text-[#FF4500] hover:bg-gray-50 px-2 py-1 rounded transition-colors duration-200"
-                              onClick={() => setIsOpen(false)}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="bg-cream/95 backdrop-blur-xl rounded-2xl shadow-glow-card border border-orange/15 mt-2 mb-4 py-4 px-4">
+                <div className="flex flex-col space-y-1">
+                  {navLinks.map((link) => (
+                    <div key={link.path}>
+                      {link.dropdown ? (
+                        <div>
+                          <button
+                            onClick={() => {
+                              if (link.label === 'Events') {
+                                setEventsDropdownOpen(!eventsDropdownOpen);
+                              } else if (link.label === 'Courses') {
+                                setCoursesDropdownOpen(!coursesDropdownOpen);
+                              }
+                            }}
+                            className={`${linkClass(location.pathname.startsWith(link.path))} flex items-center justify-between w-full py-2.5 px-2 rounded-lg`}
+                          >
+                            {link.label}
+                            <svg
+                              className={`w-4 h-4 transition-transform ${
+                                link.label === 'Events'
+                                  ? eventsDropdownOpen ? 'rotate-180' : ''
+                                  : coursesDropdownOpen ? 'rotate-180' : ''
+                              }`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
                             >
-                              {dropdownItem.label}
-                            </Link>
-                          ))}
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </button>
+                          {(link.label === 'Events' ? eventsDropdownOpen : coursesDropdownOpen) && (
+                            <div className="ml-4 mt-1 space-y-1 border-l-2 border-orange/20 pl-3">
+                              {link.dropdown.map((dropdownItem) => (
+                                <Link
+                                  key={dropdownItem.path}
+                                  to={dropdownItem.path}
+                                  className="block text-olive/80 hover:text-orange py-2 text-sm transition-colors"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {dropdownItem.label}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
                         </div>
+                      ) : (
+                        <Link
+                          to={link.path}
+                          className={`${linkClass(location.pathname === link.path)} block py-2.5 px-2 rounded-lg`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
                       )}
                     </div>
-                  ) : (
-                    <Link
-                      to={link.path}
-                      className={`text-lg font-medium transition-colors duration-300 ${
-                        location.pathname === link.path
-                          ? 'text-pearlson-red'
-                          : 'text-gray-800 hover:text-pearlson-red'
-                      }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  ))}
+                  <Link
+                    to="/champions-league-register"
+                    className="btn-primary text-center mt-3"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register Now
+                  </Link>
                 </div>
-              ))}
-              <Link
-                to="/contact"
-                className="btn-primary text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                Get Started
-              </Link>
-            </div>
-          </motion.div>
-        )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
 };
 
-export default Navbar; 
+export default Navbar;

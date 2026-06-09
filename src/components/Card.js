@@ -5,15 +5,19 @@ const Card = ({
   children,
   className = '',
   hover = false,
+  glow = false,
   onClick,
   padding = true,
   shadow = true,
   border = true,
 }) => {
-  const baseClasses = 'bg-white rounded-lg transition-all duration-300 backdrop-blur-sm';
+  const baseClasses = glow
+    ? 'glow-card'
+    : 'bg-white rounded-2xl transition-all duration-300 backdrop-blur-sm';
+
   const paddingClass = padding ? 'p-6' : '';
-  const shadowClass = shadow ? 'shadow-lg' : '';
-  const borderClass = border ? 'border border-orange' : '';
+  const shadowClass = !glow && shadow ? 'shadow-lg' : '';
+  const borderClass = !glow && border ? 'border border-orange/25' : '';
 
   const cardClasses = `
     ${baseClasses}
@@ -23,8 +27,10 @@ const Card = ({
     ${className}
   `;
 
-  const hoverClasses = hover
-    ? 'hover:shadow-2xl hover:scale-105 cursor-pointer'
+  const hoverClasses = hover && !glow
+    ? 'hover:shadow-glow-card-hover hover:scale-[1.02] cursor-pointer'
+    : hover && glow
+    ? 'cursor-pointer'
     : '';
 
   const Component = onClick ? motion.button : motion.div;
@@ -33,7 +39,7 @@ const Card = ({
     <Component
       className={`${cardClasses} ${hoverClasses}`}
       onClick={onClick}
-      whileHover={hover ? { scale: 1.02 } : {}}
+      whileHover={hover && !glow ? { scale: 1.02 } : hover && glow ? { y: -4 } : {}}
       whileTap={onClick ? { scale: 0.98 } : {}}
     >
       {children}
@@ -41,4 +47,4 @@ const Card = ({
   );
 };
 
-export default Card; 
+export default Card;

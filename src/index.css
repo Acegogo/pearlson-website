@@ -10,6 +10,8 @@
     background-color: #E7E6C4;
     color: #3F3826;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   body {
@@ -24,7 +26,15 @@
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-2 bg-orange text-cream rounded-lg hover:bg-olive hover:text-orange transition-colors duration-300 shadow-md hover:shadow-lg hover:scale-105;
+    @apply px-6 py-2.5 bg-orange text-cream rounded-xl font-semibold
+           hover:bg-olive hover:text-orange transition-all duration-300
+           shadow-md hover:shadow-glow-orange hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2.5 bg-cream/90 text-olive rounded-xl font-semibold border border-orange/30
+           hover:bg-orange hover:text-cream transition-all duration-300
+           shadow-md hover:shadow-glow-orange hover:scale-105 active:scale-95;
   }
   
   .section-padding {
@@ -35,14 +45,80 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Glassmorphism helpers */
   .glass-panel {
-    @apply bg-white/15 backdrop-blur-md border border-white/30 shadow-lg;
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg rounded-2xl;
   }
+
   .glass-card {
-    @apply bg-cream/90 backdrop-blur-sm;
+    @apply bg-cream/85 backdrop-blur-md border border-orange/20 rounded-2xl;
   }
+
   .glass-button {
     @apply backdrop-blur-sm bg-white/10;
   }
-} 
+
+  .glow-card {
+    @apply relative bg-cream/90 backdrop-blur-md rounded-2xl border border-orange/25
+           shadow-glow-card transition-all duration-500 ease-out
+           hover:shadow-glow-card-hover hover:border-orange/50 hover:-translate-y-1;
+  }
+
+  .glow-card::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 pointer-events-none;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 53, 0, 0.08), transparent 40%);
+  }
+
+  .glow-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .premium-hero {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, rgba(0, 128, 128, 0.92) 0%, rgba(63, 56, 38, 0.88) 50%, rgba(0, 128, 128, 0.85) 100%);
+  }
+
+  .premium-hero::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: radial-gradient(ellipse at 30% 20%, rgba(255, 53, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(184, 169, 212, 0.12) 0%, transparent 50%);
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/95 text-olive
+           focus:ring-2 focus:ring-orange/50 focus:border-orange outline-none
+           transition-all duration-200 placeholder:text-gray-400;
+  }
+
+  .form-label {
+    @apply block font-semibold mb-1.5 text-olive text-sm;
+  }
+
+  .form-checkbox-group {
+    @apply max-h-48 overflow-y-auto border border-gray-200 rounded-xl p-3 bg-white/95;
+  }
+
+  .stat-glow {
+    @apply relative;
+  }
+
+  .stat-glow::after {
+    content: '';
+    @apply absolute -inset-2 rounded-full opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle, rgba(231, 230, 196, 0.3) 0%, transparent 70%);
+  }
+
+  .stat-glow:hover::after {
+    @apply opacity-100;
+  }
+
+  .nav-link-active {
+    @apply text-orange font-semibold;
+  }
+
+  .partnership-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full
+           bg-kpsa-purple/20 border border-kpsa-purple/40 text-olive text-sm font-medium;
+  }
+}
