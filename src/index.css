@@ -27,14 +27,14 @@
 @layer components {
   .btn-primary {
     @apply px-6 py-2.5 bg-orange text-cream rounded-xl font-semibold
-           hover:bg-olive hover:text-orange transition-all duration-300
-           shadow-md hover:shadow-glow-orange hover:scale-105 active:scale-95;
+           hover:bg-olive hover:text-orange transition-colors duration-200
+           shadow-md active:scale-[0.98];
   }
 
   .btn-secondary {
     @apply px-6 py-2.5 bg-cream/90 text-olive rounded-xl font-semibold border border-orange/30
-           hover:bg-orange hover:text-cream transition-all duration-300
-           shadow-md hover:shadow-glow-orange hover:scale-105 active:scale-95;
+           hover:bg-orange hover:text-cream transition-colors duration-200
+           shadow-md active:scale-[0.98];
   }
   
   .section-padding {
@@ -58,19 +58,9 @@
   }
 
   .glow-card {
-    @apply relative bg-cream/90 backdrop-blur-md rounded-2xl border border-orange/25
-           shadow-glow-card transition-all duration-500 ease-out
-           hover:shadow-glow-card-hover hover:border-orange/50 hover:-translate-y-1;
-  }
-
-  .glow-card::before {
-    content: '';
-    @apply absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 pointer-events-none;
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 53, 0, 0.08), transparent 40%);
-  }
-
-  .glow-card:hover::before {
-    @apply opacity-100;
+    @apply relative bg-white rounded-2xl border border-orange/20
+           shadow-md transition-shadow duration-200
+           hover:shadow-lg hover:border-orange/35;
   }
 
   .premium-hero {

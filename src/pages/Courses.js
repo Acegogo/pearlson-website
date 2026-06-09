@@ -216,7 +216,9 @@ const Courses = () => {
                 <motion.div key={index} variants={itemVariants}>
                   <Card className="p-6 hover:shadow-xl transition-shadow duration-300">
                     <div className="flex items-center mb-4">
-                      <i className="fas fa-user-circle text-4xl text-gray-400 mr-4"></i>
+                      <svg className="w-10 h-10 text-gray-400 mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                      </svg>
                       <div>
                         <h3 className="font-bold">{testimonial.name}</h3>
                         <p className="text-gray-600">{testimonial.course}</p>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import CoursesRegistrationForm from '../components/CoursesRegistrationForm';
 import PageBackground from '../components/PageBackground';
 
@@ -7,20 +6,13 @@ const CoursesRegister = () => {
   useEffect(() => {
     document.title = 'Courses Registration | Pearlson Languages';
   }, []);
+
   return (
-    <PageBackground
-      image="/Images/Past Events/Nairobi Edition/1 (163).jpg"
-      className="flex items-center justify-center p-4"
-    >
-      <div className="relative z-10 w-full flex items-center justify-center py-8 md:py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-xl glow-card p-6 md:p-10 shadow-glow-card"
-        >
+    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (163).jpg" className="p-4">
+      <div className="flex items-center justify-center py-8 md:py-12">
+        <div className="w-full max-w-xl glow-card p-6 md:p-10 bg-white">
           <CoursesRegistrationForm />
-        </motion.div>
+        </div>
       </div>
     </PageBackground>
   );

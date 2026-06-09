@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const Card = ({
   children,
@@ -13,37 +12,23 @@ const Card = ({
 }) => {
   const baseClasses = glow
     ? 'glow-card'
-    : 'bg-white rounded-2xl transition-all duration-300 backdrop-blur-sm';
+    : 'bg-white rounded-2xl transition-shadow duration-200';
 
   const paddingClass = padding ? 'p-6' : '';
-  const shadowClass = !glow && shadow ? 'shadow-lg' : '';
-  const borderClass = !glow && border ? 'border border-orange/25' : '';
+  const shadowClass = !glow && shadow ? 'shadow-md' : '';
+  const borderClass = !glow && border ? 'border border-orange/20' : '';
+  const hoverClasses = hover ? 'hover:shadow-lg cursor-pointer' : '';
 
-  const cardClasses = `
-    ${baseClasses}
-    ${paddingClass}
-    ${shadowClass}
-    ${borderClass}
-    ${className}
-  `;
-
-  const hoverClasses = hover && !glow
-    ? 'hover:shadow-glow-card-hover hover:scale-[1.02] cursor-pointer'
-    : hover && glow
-    ? 'cursor-pointer'
-    : '';
-
-  const Component = onClick ? motion.button : motion.div;
+  const Tag = onClick ? 'button' : 'div';
 
   return (
-    <Component
-      className={`${cardClasses} ${hoverClasses}`}
+    <Tag
+      className={`${baseClasses} ${paddingClass} ${shadowClass} ${borderClass} ${hoverClasses} ${className}`}
       onClick={onClick}
-      whileHover={hover && !glow ? { scale: 1.02 } : hover && glow ? { y: -4 } : {}}
-      whileTap={onClick ? { scale: 0.98 } : {}}
+      type={onClick ? 'button' : undefined}
     >
       {children}
-    </Component>
+    </Tag>
   );
 };
 
