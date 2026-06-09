@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import { Link } from 'react-router-dom';
-import PageBackground from '../components/PageBackground';
+import SiteLogo from '../components/SiteLogo';
 
 const SLIDESHOW_IMAGES = {
   nairobi: [
@@ -58,16 +58,17 @@ function LightSlideshow({ images, basePath, altPrefix }) {
 const EVENTS = [
   {
     id: 'champions-league-2026',
-    name: 'National Champions League Edition 2026',
+    name: 'National Champions League Multilingual Festival 2026',
     date: new Date('2026-08-01T08:00:00+03:00'),
-    location: 'Nationwide, Kenya',
+    location: 'Light Academy, Nyali Mombasa',
     description: 'The grand national finale in partnership with KPSA — private schools across Kenya unite',
-    tagline: 'Where young linguists shine! Over 25 schools competing across 8 languages.',
-    theme: "Innovate, Unite, and Transform: Africa's Journey Ahead",
-    categories: 'Kindergarten to Junior School competitions',
-    prizes: 'Trophies, medals, and school grants for winners!',
+    tagline: 'Borderless Voices, Boundless Solutions — For a Better Tomorrow',
+    theme: 'Celebrating the Beauty and Power of Languages',
+    categories: 'Pre-Primary through Senior School, Traditional Dance, and Solo Pieces (max 8 items per language)',
+    prizes: 'Attractive prizes await winning schools — trophies, medals, and school grants!',
     registerRoute: '/champions-league-register',
-    poster: '/Images/poster_4_nairobi_v2.png',
+    poster: '/Images/championsleague-detailsone.jpeg',
+    posterSecondary: '/Images/championsleague-detailstwo.jpeg',
     partnership: true,
   },
 ];
@@ -160,12 +161,12 @@ const Events = () => {
   ];
 
   return (
-    <PageBackground image="/Images/Past Events/Nairobi Edition/1 (253).jpg">
+    <div>
       <section
-        className="relative py-16 md:py-20 bg-cover bg-center"
-        style={{ backgroundImage: "url('/Images/Past Events/Nairobi Edition/1 (286).jpg')" }}
+        className="relative py-16 md:py-20 bg-cover bg-center bg-teal"
+        style={{ backgroundImage: "url('/Images/championsleague-detailsone.jpeg')" }}
       >
-        <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-cream mb-4">
             Events & Celebrations
@@ -176,7 +177,7 @@ const Events = () => {
         </div>
       </section>
 
-      <section className="section-padding">
+      <section className="section-padding bg-cream">
         <div className="container-custom">
           <div className="flex justify-center mb-10">
             <div className="inline-flex rounded-xl border border-orange/30 p-1 bg-white">
@@ -202,7 +203,7 @@ const Events = () => {
                   <div className="p-6 md:p-8 pb-0">
                     {event.partnership && (
                       <div className="flex items-center justify-center gap-4 mb-6">
-                        <img src="/Images/PLS_logo.png" alt="Pearlson Languages" className="h-12 bg-white rounded-xl p-1 shadow-sm" loading="lazy" />
+                        <SiteLogo className="h-12" />
                         <span className="text-orange text-xl">&times;</span>
                         <img src="/Images/kpsa-logo.png" alt="KPSA" className="h-14 w-14 object-contain bg-white rounded-xl p-1 shadow-sm" loading="lazy" />
                       </div>
@@ -217,8 +218,11 @@ const Events = () => {
                     )}
                   </div>
                   {event.poster && (
-                    <div className="px-6 md:px-8 mb-4">
-                      <img src={event.poster} alt={`${event.name} poster`} className="w-full h-auto rounded-xl border border-orange/15 object-contain" loading="lazy" />
+                    <div className="px-6 md:px-8 mb-4 space-y-4">
+                      <img src={event.poster} alt={`${event.name} official poster`} className="w-full h-auto rounded-xl border border-orange/15 object-contain" loading="lazy" />
+                      {event.posterSecondary && (
+                        <img src={event.posterSecondary} alt={`${event.name} details`} className="w-full h-auto rounded-xl border border-orange/15 object-contain" loading="lazy" />
+                      )}
                     </div>
                   )}
                   <div className="px-6 md:px-8 pb-8 text-center">
@@ -288,7 +292,7 @@ const Events = () => {
           )}
         </div>
       </section>
-    </PageBackground>
+    </div>
   );
 };
 

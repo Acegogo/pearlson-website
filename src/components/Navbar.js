@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import SiteLogo from './SiteLogo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,14 +57,8 @@ const Navbar = () => {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center">
-            <img
-              src="/Images/PLS_logo.png"
-              alt="Pearlson Languages"
-              className="h-10 md:h-12 bg-white rounded-xl p-1 shadow-sm"
-              width="48"
-              height="48"
-            />
+          <Link to="/" className="flex items-center shrink-0">
+            <SiteLogo />
           </Link>
 
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">

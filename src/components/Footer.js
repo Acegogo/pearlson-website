@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SiteLogo from './SiteLogo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -66,12 +67,7 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <Link to="/" className="inline-block mb-6">
-              <img
-                src="/Images/PLS_logo.png"
-                alt="Pearlson Languages"
-                className="h-12 bg-white rounded-lg p-1 shadow-md"
-                style={{ background: 'white', borderRadius: '0.5rem', padding: '0.25rem' }}
-              />
+              <SiteLogo className="h-12" />
             </Link>
             <p className="text-gray-300 mb-4">
               Empowering individuals through language education and cultural exchange.

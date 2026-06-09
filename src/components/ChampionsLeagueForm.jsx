@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import SiteLogo from './SiteLogo';
+
+const CHAMPIONS_POSTER = '/Images/championsleague-detailsone.jpeg';
 
 const languages = [
   'English',
@@ -13,13 +16,13 @@ const languages = [
 ];
 
 const categories = [
-  'Kindergarten: Singing game',
-  'Lower primary (grade 1-3): Song/song and dance/choral poem',
-  'Upper primary (grade 4-6): Choral verse/song and dance/rap',
-  'Junior school (grade 7-9): Skit/play/modern dance',
-  'Grade 10: Skit, song, poem, choral verse',
-  'Form 3 & 4: Skit, song, poem, choral verse',
-  'Solo pieces (any grade): Solo verse/public speaking/solo song',
+  'Pre-Primary: Singing Game',
+  'Lower Primary (Grade 1-3): Song',
+  'Upper Primary (Grade 4-6): Choral Verse',
+  'Junior School (Grade 7-9): Modern Dance',
+  'Senior School (Grade 10): Skit',
+  'Mixed Grades (Grade 1-10): Traditional Dance',
+  'Solo Pieces (Any Grade): Solo Verse / Public Speaking / Solo Song / Story Telling',
 ];
 
 const counties = [
@@ -167,27 +170,36 @@ const ChampionsLeagueForm = () => {
       </p>
 
       <div className="text-center mb-8">
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
-          <img
-            src="/Images/PLS_logo.png"
-            alt="Pearlson Languages and Solutions"
-            className="h-16 bg-white rounded-xl p-2 shadow-md"
-          />
+        <img
+          src={CHAMPIONS_POSTER}
+          alt="National Champions League Multilingual Festival 2026 official poster"
+          className="w-full max-w-lg mx-auto rounded-xl border border-orange/20 shadow-md mb-6"
+          loading="eager"
+        />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+          <SiteLogo className="h-14" />
           <span className="text-2xl text-orange font-light hidden sm:block">&times;</span>
           <img
             src="/Images/kpsa-logo.png"
             alt="Kenya Private Schools Association (KPSA) logo"
-            className="h-20 w-20 object-contain bg-white rounded-xl p-1 shadow-md"
+            className="h-16 w-16 object-contain bg-white rounded-xl p-1 shadow-sm"
+            loading="lazy"
           />
         </div>
         <h2 className="text-2xl md:text-3xl font-bold text-olive mb-2">
-          National Champions League Edition 2026
+          National Champions League Multilingual Festival 2026
         </h2>
-        <p className="partnership-badge mx-auto mb-4">
+        <p className="partnership-badge mx-auto mb-3 w-fit">
           In partnership with Kenya Private Schools Association (KPSA)
         </p>
+        <p className="text-orange font-medium mb-2">
+          Borderless Voices, Boundless Solutions — For a Better Tomorrow
+        </p>
         <p className="text-olive/80 text-sm md:text-base max-w-lg mx-auto">
-          Nationwide registration for private schools across Kenya. Event date: <strong>1 August 2026</strong>.
+          <strong>1 August 2026</strong> · Light Academy, Nyali Mombasa · Nationwide registration for private schools across Kenya
+        </p>
+        <p className="text-olive/70 text-sm mt-2 max-w-md mx-auto">
+          Maximum of 8 items per language. Attractive prizes await winning schools!
         </p>
       </div>
 

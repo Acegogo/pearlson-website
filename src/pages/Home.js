@@ -35,7 +35,7 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div className="animate-slide-up">
               <span className="inline-block px-4 py-1.5 rounded-full bg-orange/25 border border-orange/40 text-cream text-sm font-medium mb-6">
-                National Champions League 2026 — 1 August
+                National Champions League — 1 August 2026 · Mombasa
               </span>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream mb-6 leading-tight">
                 Empowering Students Through Language Learning
