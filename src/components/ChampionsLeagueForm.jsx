@@ -41,7 +41,6 @@ const initialState = {
   'contact-person': '',
   email: '',
   phone: '',
-  'transaction-code': '',
   categories: [],
   languages: [],
 };
@@ -87,8 +86,6 @@ const ChampionsLeagueForm = () => {
     else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Invalid email address.';
     if (!formData.phone) newErrors.phone = 'Phone number is required.';
     else if (!/^\+254\d{9}$/.test(formData.phone)) newErrors.phone = 'Phone must be in +254xxxxxxxxx format.';
-    if (!formData['transaction-code']) newErrors['transaction-code'] = 'M-Pesa transaction code is required.';
-    else if (!/^[A-Za-z0-9]{10,12}$/.test(formData['transaction-code'])) newErrors['transaction-code'] = 'Transaction code must be 10-12 alphanumeric characters.';
     if (!formData.categories.length) newErrors.categories = 'At least one category is required.';
     if (!formData.languages.length) newErrors.languages = 'At least one language is required.';
     return newErrors;
@@ -201,13 +198,6 @@ const ChampionsLeagueForm = () => {
         <p className="text-olive/70 text-sm mt-2 max-w-md mx-auto">
           Maximum of 8 items per language. Attractive prizes await winning schools!
         </p>
-      </div>
-
-      <div className="bg-orange/5 border border-orange/20 rounded-xl p-4 mb-6 text-olive text-sm md:text-base">
-        Pay <span className="font-bold text-orange">Ksh 3,500</span> registration fee via M-Pesa Pay-Bill{' '}
-        <span className="font-bold">522522</span>, account <span className="font-bold">6359999</span> before submitting.
-        Each pupil pays <span className="font-bold">Ksh 500</span> entry fee on event day using the same Pay-Bill.{' '}
-        <span className="font-bold">No cash accepted.</span>
       </div>
 
       {errors.submit && (
