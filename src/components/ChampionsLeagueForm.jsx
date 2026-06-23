@@ -268,37 +268,20 @@ const ChampionsLeagueForm = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label htmlFor="phone" className="form-label">Phone Number *</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            pattern="\+254\d{9}"
-            placeholder="+254xxxxxxxxx"
-            required
-            className="form-input"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-          {errors.phone && <div className="text-red-500 text-sm mt-1">{errors.phone}</div>}
-        </div>
-
-        <div>
-          <label htmlFor="transaction-code" className="form-label">M-Pesa Transaction Code *</label>
-          <input
-            id="transaction-code"
-            name="transaction-code"
-            type="text"
-            pattern="[A-Za-z0-9]{10,12}"
-            required
-            className="form-input"
-            value={formData['transaction-code']}
-            onChange={handleChange}
-          />
-          {errors['transaction-code'] && <div className="text-red-500 text-sm mt-1">{errors['transaction-code']}</div>}
-        </div>
+      <div className="mb-4">
+        <label htmlFor="phone" className="form-label">Phone Number *</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          pattern="\+254\d{9}"
+          placeholder="+254xxxxxxxxx"
+          required
+          className="form-input"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        {errors.phone && <div className="text-red-500 text-sm mt-1">{errors.phone}</div>}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
